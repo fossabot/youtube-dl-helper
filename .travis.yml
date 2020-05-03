@@ -18,10 +18,10 @@ matrix:
         - choco install python
 
 install:
-  - python -m pip install --upgrade pip
+  - python -m pip3 install --upgrade pip
   #- pip install -r requirements.txt
-  - pip install pyinstaller
-  - pip install youtube_dl
+  - pip3 install pyinstaller
+  - pip3 install youtube_dl
 
 script:
   - pyinstaller --onefile --noconsole --name mp3_gui main.py
