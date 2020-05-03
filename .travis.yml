@@ -29,11 +29,4 @@ script:
   - ls -l dist
   - echo "Build appears to be finished!"
   
-deploy:
-  provider: releases
-  api_key:
-    secure: "WWNaJRL33jP3MGwcD7RXnyN506BAlZvpAG9yEWtwoMAqNCorJ2GuCCB6WxzYmDZEnIFaJkIsa2st/1fl/29/NRbNj/o9cCbbV1tBu/YNJLSVeygE9DlqW0t+451Obk0jaQnveqU/QtVo9oeVwuYm1iORTkYiF1qY2RXzb4xqP579YgVvZf9ganrJllchPfcEvrQ9J5RUBb/NdqDdBGcJJq/KvnxKPvcBsYfxXvedj8PRHMZMs4sb3Hw7snDbODSbLjj7oQzB8Il4epWAxr3ZhroaAZodpv3fMym/Y5MeOspAIuXiVNXqMx2178NUpWj1cAo3PY8DjXzee0RJLGq5uUMiYPZR2aK0cqjhXn2XeZJeg544T5u1X2A4yQL3m8j45bqM09qlz5Xc9RoZB5Bd3v6P4RPBbLt8hrvW+ppSmbmY07dPBiOMtGVtW9NZVXKrL5gVqYOsnN8OV3bucvScoOidire/0WYM9FjZjisAwpB99C9K/d3MtIsbdQA/1pj+m8M3jL572pp4+wPttpMaJ9AHufEQV4Nzs20b/42A/e0Xi/nJicL2QZ5xjaA/vHmolXBOwcngxyK0sihFbYWm5FgcEAmos3fRFasJcNqurutIqMhNFH5QN3ByBX/itmsnCmIscLuQZhAxueP4HgSQxHnQTxO7FNrSeN4FStKhM6E="
-  file: "mp3_gui.exe"
-  cleanup: false
-  on:
-    tags: false
+
