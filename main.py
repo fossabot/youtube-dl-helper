@@ -34,7 +34,7 @@ class MyFrame(wx.Frame):
                 ydl.download([value])
             resp = wx.MessageBox('Download has finished, are you done?', 'Finished!', wx.YES_NO)
             if resp == wx.YES:
-                quit()
+                self.Destroy()
             elif resp == wx.NO:
                 return
 
