@@ -27,5 +27,4 @@ script:
   - pyinstaller --onefile --noconsole --name mp3_gui main.py
   - sleep 1  # Allow pyinstaller to finish writing to stdout
   - ls -l dist
-  - dist/mp3_gui.exe
-  - echo "Did something print?!?"
+  - echo "Build appears to be finished!"
