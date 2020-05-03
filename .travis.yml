@@ -8,7 +8,7 @@ language: shell  # 'language: python' is not yet supported on Windows
 
 env:
   global:
-    - PY37PATH=/c/Python37:/c/Python37/Scripts
+    - PY37PATH=/c/Python38:/c/Python38/Scripts
   
 matrix:
   include:
@@ -18,10 +18,10 @@ matrix:
         - choco install python
 
 install:
-  - python -m pip3 install --upgrade pip
+  - python -m pip install --upgrade pip
   #- pip install -r requirements.txt
-  - pip3 install pyinstaller
-  - pip3 install youtube_dl
+  - pip install pyinstaller
+  - pip install youtube_dl
 
 script:
   - pyinstaller --onefile --noconsole --name mp3_gui main.py
