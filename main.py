@@ -41,7 +41,7 @@ class MyFrame(wx.Frame):
 
         value = self.text_ctrl.GetValue()
         if not value:
-            print("You didn't enter anything!")
+            nothingEntered = wx.MessageBox('Nothing was entered in the box', 'Error', wx.OK)
         else:
             print("Downloading and converting. Be patient.")
             userChoice = self.combobox.GetValue()
