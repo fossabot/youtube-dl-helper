@@ -28,3 +28,12 @@ script:
   - sleep 1  # Allow pyinstaller to finish writing to stdout
   - ls -l dist
   - echo "Build appears to be finished!"
+  
+deploy:
+  provider: releases
+  api_key:
+    secure: "ABgSVzk94FrMjeoGeVrtzbRam/iXsAH/NSdDqNzPHqf/kpuqnJ7gYNV6OoRB5Mrqpcm9cVsKTnexYQgnbtlCJ25La27/IPoVKkiu/CBGTdXTv59gHSTaqdv+hUP2Hk0ShSjFpkYIPGf0pB29WFT3bYXeMk3M7EDr5VCvw65O0Q4oMQ42DnIymAxWSRigp8prsNNDbw0+S5CfEYXv9JiZvdiUad2oXT3WCWa6CPczrfwpB0osRsXprEGp6naTXuZxKSxwzIv3WuXYW7hMADXYolpFgiZEreT+aSHPrXP08asLkGgLf3SdASQGoWUr2mNn/a4gKDW3kKaagFCNHjd4HytzpTHCr3kIXW3xeFaFaopbeW7ynxr0mmRoxSvWtVegWxBujYXeDFk8p7zfykRZ7Ud48jIcuHIDRPI6y/Ga9eQfCrrf1yOi8ddvlF/quO3VxV0FQFzgyKlIHG3a/cLSJE+QY6L64cnBlKhjYvVdnPkqyo7rRQ7ZXie6W3VfwBCVVT+bjNmkfwf5KbtClA4czbL5wogevSjanZaWrMNZ9LdkdJy4P7KWPtNSfpg/42W8IsZom9q0NYoR6hbrhbpvWV0+PClAm4LO7Nk2zW4FHhnP9QUbDxzgePEfDtHARaAXcPOA0DCHRchskr8GSjtciDHE8l3DRbvblu71Zyog9MA="
+  file: "mp3_gui.exe"
+  skip_cleanup: true
+  on:
+    tags: false
