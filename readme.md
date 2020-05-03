@@ -1,7 +1,12 @@
 # mp3_gui
-wanted a very simple program to very quickly download youtube videos and convert them to mp3s. was tired of running the youtube_dl command in command prompt every time. to try and learn a little bit about wxpython i decided to create this. seems to work ok for my needs but the code is very bad and could probably be greatly improved.
+didn't like running youtube_dl in the command prompt every time. wanted to practice making gui applications so made this.
+i am aware of a youtube_dl gui which is much better but wanted to try and make something myself.
 
 # requirements
 * wxpython
 * youtube_dl
+view requirements.txt for specific details
+
+# packaging using pyinstaller
+i've successfully created an .exe which runs fine. used the arguments --name *whatever* --onefile --noconsole 
 
