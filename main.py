@@ -15,9 +15,10 @@ class MyFrame(wx.Frame):
         my_btn = wx.Button(panel, label='Download video')
         my_btn.Bind(wx.EVT_BUTTON, self.on_press)
         my_sizer.Add(my_btn, 0, wx.ALL | wx.CENTER, 5)
-        self.combobox = wx.ComboBox(panel, choices=availableTypes, pos=(50,50))
+        self.combobox = wx.Choice(panel, choices=availableTypes, pos=(50,50))
+        self.combobox.SetSelection(0)
         my_sizer.Add(self.combobox, 0, wx.ALL | wx.CENTER, 60)
-        self.Bind(wx.EVT_COMBOBOX, self.OnCombo)
+        self.Bind(wx.EVT_CHOICE, self.OnCombo)
         panel.SetSizer(my_sizer)
         self.Show()
 
