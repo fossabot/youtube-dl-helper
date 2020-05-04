@@ -48,10 +48,10 @@ class MyFrame(wx.Frame):
             with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                 ydl.download([value])
             self.status_label.SetLabel("Waiting for user input...")
-            resp = wx.MessageBox('Download has finished, would you like to exit?', 'Download complete', wx.YES_NO)
-            if resp == wx.YES:
+            download_finished_message = wx.MessageBox('Download has finished, would you like to exit?', 'Download complete', wx.YES_NO)
+            if download_finished_message == wx.YES:
                 self.Destroy()
-            elif resp == wx.NO:
+            elif download_finished_message == wx.NO:
                 return
 
 
