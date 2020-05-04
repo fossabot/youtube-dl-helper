@@ -32,7 +32,7 @@ class MyFrame(wx.Frame):
         elif d['status'] == 'finished':
             self.status_label.SetLabel("Converting")
 
-    def on_press(self, event):
+    def on_press(self, event_):
         ydl_opts_audio = {
             'format': 'bestaudio/best',
             'postprocessors': [{
@@ -51,19 +51,24 @@ class MyFrame(wx.Frame):
         if not value:
             wx.MessageBox('Nothing was entered in the box', 'Error', wx.OK)
         else:
-            print("Downloading and converting. Be patient.")
-            self.status_label.SetLabel("Preparing to download...")
-            format_choice = self.format_selection.GetSelection()
-            format_configuration = [ydl_opts_audio, ydl_opts_video]
-            with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
-                ydl.download([value])
-            self.status_label.SetLabel("Waiting for user input...")
-            download_finished_message = wx.MessageBox('Download has finished, would you like to exit?',
-                                                      'Download complete', wx.YES_NO)
-            if download_finished_message == wx.YES:
-                self.Destroy()
-            elif download_finished_message == wx.NO:
-                return
+            try:
+                print("Downloading and converting. Be patient.")
+                self.status_label.SetLabel("Preparing to download...")
+                format_choice = self.format_selection.GetSelection()
+                format_configuration = [ydl_opts_audio, ydl_opts_video]
+                with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
+                    ydl.download([value])
+                self.status_label.SetLabel("Waiting for user input...")
+                download_finished_message = wx.MessageBox('Download has finished, would you like to exit?',
+                                                          'Download complete', wx.YES_NO)
+                if download_finished_message == wx.YES:
+                    self.Destroy()
+                elif download_finished_message == wx.NO:
+                    return
+            except youtube_dl.utils.DownloadError:
+                self.status_label.SetLabel("Waiting for user input...")
+                wx.MessageBox('Error whilst attempting to download.',
+                              'Error', wx.OK)
 
 
 if __name__ == '__main__':
