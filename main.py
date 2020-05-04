@@ -23,8 +23,6 @@ class MyFrame(wx.Frame):
         panel.SetSizer(form_sizer)
         self.Show()
 
-    #  class download_looger
-
     def download_hook(self, d):
         if d['status'] == 'downloading':  # check download status from the youtube_dl instance
             self.status_label.SetLabel("Downloading...")
