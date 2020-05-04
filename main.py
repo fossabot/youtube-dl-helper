@@ -44,12 +44,9 @@ class MyFrame(wx.Frame):
             print("Downloading and converting. Be patient.")
             self.status_label.SetLabel("Downloading")
             format_choice = self.format_selection.GetSelection()
-            if format_choice == 0:
-                with youtube_dl.YoutubeDL(ydl_opts_audio) as ydl:
-                    ydl.download([value])
-            elif format_choice == 1:
-                with youtube_dl.YoutubeDL(ydl_opts_video) as ydl:
-                    ydl.download([value])
+            format_configuration = [ydl_opts_audio, ydl_opts_video]
+            with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
+                ydl.download([value])
             self.status_label.SetLabel("Waiting for user input...")
             resp = wx.MessageBox('Download has finished, would you like to exit?', 'Download complete', wx.YES_NO)
             if resp == wx.YES:
