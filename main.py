@@ -32,7 +32,7 @@ class MyFrame(wx.Frame):
         elif d['status'] == 'finished':
             self.status_label.SetLabel("Converting")
 
-    def on_press(self, event_):
+    def on_press(self, _event_):
         ydl_opts_audio = {
             'format': 'bestaudio/best',
             'postprocessors': [{
