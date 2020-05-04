@@ -30,7 +30,10 @@ every commit is automatically built by travis-ci as well to test that there aren
 
 # compatibility
 
-| Windows | Linux   | MacOS   |
-|---------|---------|---------|
-| Working | Unknown | Unknown |
+| OS | Supported          |
+| ------- | ------------------ |
+| Windows   | :white_check_mark: |
+| Linux  | Probably                |
+| MacOS   | ? |
+
 
