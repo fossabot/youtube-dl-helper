@@ -7,11 +7,17 @@ Better options do exist but I wanted to practice python and make something simpl
 
 
 # requirements
+running source code yourself:
 * wxpython
 * youtube_dl
 * also requires either the ffmpeg binary in the folder or in your system's PATH
 
 view requirements.txt for specific details
+
+running precompiled exe:
+
+visit release page and download latest build
+
 
 # screenshots
 ![Image of project](https://i.imgur.com/5GPHZnz.png)
