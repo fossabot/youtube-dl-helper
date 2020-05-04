@@ -11,8 +11,8 @@ class MyFrame(wx.Frame):
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
         self.status_label = wx.StaticText(panel, label="Waiting for user input...")
-        self.status_label.Wrap(210)
-        form_sizer.Add(self.status_label, 0, wx.ALL | wx.CENTER, 5)
+        # self.status_label.Wrap(210)
+        form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
         form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
         download_button = wx.Button(panel, label='Download video')
         download_button.Bind(wx.EVT_BUTTON, self.on_press)
@@ -23,6 +23,15 @@ class MyFrame(wx.Frame):
         panel.SetSizer(form_sizer)
         self.Show()
 
+    #  class download_looger
+
+    def download_hook(self, d):
+        if d['status'] == 'downloading':  # check download status from the youtube_dl instance
+            self.status_label.SetLabel("Downloading...")
+
+        elif d['status'] == 'finished':
+            self.status_label.SetLabel("Converting")
+
     def on_press(self, event):
         ydl_opts_audio = {
             'format': 'bestaudio/best',
@@ -30,7 +39,8 @@ class MyFrame(wx.Frame):
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
-            }]
+            }],
+            'progress_hooks': [self.download_hook]
         }
 
         ydl_opts_video = {
@@ -42,13 +52,14 @@ class MyFrame(wx.Frame):
             wx.MessageBox('Nothing was entered in the box', 'Error', wx.OK)
         else:
             print("Downloading and converting. Be patient.")
-            self.status_label.SetLabel("Downloading")
+            self.status_label.SetLabel("Preparing to download...")
             format_choice = self.format_selection.GetSelection()
             format_configuration = [ydl_opts_audio, ydl_opts_video]
             with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                 ydl.download([value])
             self.status_label.SetLabel("Waiting for user input...")
-            download_finished_message = wx.MessageBox('Download has finished, would you like to exit?', 'Download complete', wx.YES_NO)
+            download_finished_message = wx.MessageBox('Download has finished, would you like to exit?',
+                                                      'Download complete', wx.YES_NO)
             if download_finished_message == wx.YES:
                 self.Destroy()
             elif download_finished_message == wx.NO:
