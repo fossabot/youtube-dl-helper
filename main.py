@@ -7,13 +7,13 @@ class MyFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
         panel = wx.Panel(self)
-        available_formats = ["audio-hq", "video-hq"]
+        available_formats = ["audio-hq", "video-hq + audio", "video-hq + no audio"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
         self.status_label = wx.StaticText(panel, label="Waiting for user input...")
         form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
         form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
-        download_button = wx.Button(panel, label='Download video')
+        download_button = wx.Button(panel, label='Download')
         download_button.Bind(wx.EVT_BUTTON, self.on_press)
         form_sizer.Add(download_button, 0, wx.ALL | wx.CENTER, 5)
         self.format_selection = wx.Choice(panel, choices=available_formats, pos=(50, 10))
@@ -40,8 +40,12 @@ class MyFrame(wx.Frame):
             'progress_hooks': [self.download_hook]
         }
 
-        ydl_opts_video = {
+        ydl_opts_video_audio = {
             'format': 'bestvideo+bestaudio'
+        }
+
+        ydl_opts_video_noaudio = {
+            'format': 'bestvideo'
         }
 
         value = self.text_ctrl.GetValue()
@@ -52,7 +56,7 @@ class MyFrame(wx.Frame):
                 print("Downloading and converting. Be patient.")
                 self.status_label.SetLabel("Preparing to download...")
                 format_choice = self.format_selection.GetSelection()
-                format_configuration = [ydl_opts_audio, ydl_opts_video]
+                format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio]
                 with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                     ydl.download([value])
                 self.status_label.SetLabel("Waiting for user input...")
