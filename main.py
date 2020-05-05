@@ -5,13 +5,12 @@ import youtube_dl
 
 class MyFrame(wx.Frame):
     def __init__(self):
-        super().__init__(parent=None, title='youtube-helper')
+        super().__init__(parent=None, title='mp3_gui')
         panel = wx.Panel(self)
-        available_formats = ["mp3", "video"]
+        available_formats = ["audio-hq", "video-hq"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
         self.status_label = wx.StaticText(panel, label="Waiting for user input...")
-        # self.status_label.Wrap(210)
         form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
         form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
         download_button = wx.Button(panel, label='Download video')
