@@ -41,7 +41,7 @@ class MyFrame(wx.Frame):
         }
 
         ydl_opts_video = {
-            'format': 'bestvideo'
+            'format': 'bestvideo+bestaudio'
         }
 
         value = self.text_ctrl.GetValue()
