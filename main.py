@@ -5,7 +5,7 @@ import youtube_dl
 
 class MyFrame(wx.Frame):
     def __init__(self):
-        super().__init__(parent=None, title='mp3_gui')
+        super().__init__(parent=None, title='youtube-dl-helper')
         panel = wx.Panel(self)
         available_formats = ["audio-hq", "video-hq"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -46,7 +46,7 @@ class MyFrame(wx.Frame):
 
         value = self.text_ctrl.GetValue()
         if not value:
-            wx.MessageBox('Nothing was entered in the box', 'Error', wx.OK)
+            wx.MessageBox('Nothing was entered in the box. Please enter a valid link', 'Error', wx.OK)
         else:
             try:
                 print("Downloading and converting. Be patient.")
@@ -64,7 +64,7 @@ class MyFrame(wx.Frame):
                     return
             except youtube_dl.utils.DownloadError:
                 self.status_label.SetLabel("Waiting for user input...")
-                wx.MessageBox('Error whilst attempting to download.',
+                wx.MessageBox('Error whilst attempting to download. Check your link as it may be broken!',
                               'Error', wx.OK)
 
 
