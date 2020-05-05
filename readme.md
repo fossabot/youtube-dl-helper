@@ -1,7 +1,7 @@
 # youtube-dl-helper
 [![Build Status](https://travis-ci.com/jwbn/youtube-dl-helper.svg?branch=master)](https://travis-ci.com/jwbn/youtube-dl-helper)
 
-Grabs the youtube link that the user has inputted and saves it as either an mp3 or mp4. Uses youtube-dl and wxpython is used for the gui.
+Grabs the youtube link that the user has inputted and saves it as either an mp3 or mp4. Uses youtube-dl and wxpython is used for the gui
 
 Better options do exist but I wanted to practice python and make something simple but useful for me. I don't need too many features just something to quickly download youtube videos with no hassle.
 
