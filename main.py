@@ -23,7 +23,7 @@ class MyFrame(wx.Frame):
         self.Show()
 
     def download_hook(self, d):
-        if d['status'] == 'downloading':  # check download status from the youtube_dl instance
+        if d['status'] == 'downloading':
             self.status_label.SetLabel("Downloading...")
 
         elif d['status'] == 'finished':
