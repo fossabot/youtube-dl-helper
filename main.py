@@ -3,7 +3,7 @@ import wx
 import youtube_dl
 
 
-class MyFrame(wx.Frame):
+class HelperFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
         panel = wx.Panel(self)
@@ -73,6 +73,6 @@ class MyFrame(wx.Frame):
 
 
 if __name__ == '__main__':
-    app = wx.App()
-    frame = MyFrame()
-    app.MainLoop()
+    helper_app = wx.App()
+    helper_frame = HelperFrame()
+    helper_app.MainLoop()
