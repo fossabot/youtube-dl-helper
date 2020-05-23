@@ -61,8 +61,6 @@ class HelperFrame(wx.Frame):
 
         }
 
-
-
         value = self.text_ctrl.GetValue()
         if not value:
             wx.MessageBox('Nothing was entered in the box. Please enter a valid link', 'Error', wx.OK | wx.ICON_HAND)
