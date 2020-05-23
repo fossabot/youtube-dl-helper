@@ -8,7 +8,7 @@ class HelperFrame(wx.Frame):
         super().__init__(parent=None, title='youtube-dl-helper')
         panel = wx.Panel(self)
         available_formats = ["audio only", "video and audio", "video only", "video, audio and subs"]
-        quality_formats = ["480p", "720p", "1080p"]
+        quality_formats = ["144p", "240p", "360p", "480p", "720p", "1080p"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
         self.status_label = wx.StaticText(panel, label="Waiting for user input...")
@@ -35,7 +35,7 @@ class HelperFrame(wx.Frame):
 
     def on_press(self, _event_):
         quality_choice = self.quality_selection.GetSelection()
-        quality_selection = ["480", "720", "1080"]
+        quality_selection = ["144", "240", "360", "480", "720", "1080"]
         ydl_opts_audio = {
             'format': 'bestaudio/best',
             'postprocessors': [{
