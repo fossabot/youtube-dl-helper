@@ -11,7 +11,7 @@ class HelperFrame(wx.Frame):
         quality_formats = ["144p", "240p", "360p", "480p", "720p", "1080p"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
-        self.status_label = wx.StaticText(panel, label="Waiting for user input...")
+        self.status_label = wx.StaticText(panel, label="Waiting for user input")
         form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
         form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
         self.format_selection = wx.Choice(panel, choices=available_formats, pos=(50, 10))
