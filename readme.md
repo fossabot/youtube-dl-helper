@@ -12,11 +12,6 @@ Better options do exist but I wanted to practice python and make something simpl
 * status text
 * basic error handling for incorrect link / no link
 
-# planned features
-* different output support
-
-probably more stuff as i think of it
-
 
 
 # requirements
@@ -27,13 +22,10 @@ running source code yourself:
 
 view requirements.txt for specific details
 
-running precompiled exe:
-
-visit release page and download latest build
 
 
 # screenshots
-![Image of project](https://i.imgur.com/5GPHZnz.png)
+![Image of project](https://i.imgur.com/cDEYcBS.png)
 
 
 # packaging using pyinstaller
