@@ -7,7 +7,8 @@ class HelperFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
         panel = wx.Panel(self)
-        available_formats = ["audio-hq", "video-hq + audio", "video-hq + no audio", "video+audio + subs"]
+        available_formats = ["audio only", "video and audio", "video only", "video, audio and subs"]
+        quality_formats = ["480p", "720p", "1080p"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
         self.status_label = wx.StaticText(panel, label="Waiting for user input...")
@@ -18,7 +19,10 @@ class HelperFrame(wx.Frame):
         form_sizer.Add(download_button, 0, wx.ALL | wx.CENTER, 5)
         self.format_selection = wx.Choice(panel, choices=available_formats, pos=(50, 10))
         self.format_selection.SetSelection(0)
+        self.quality_selection = wx.Choice(panel, choices=quality_formats, pos=(50, 15))
+        self.quality_selection.SetSelection(2)
         form_sizer.Add(self.format_selection, 0, wx.ALL | wx.CENTER, 20)
+        form_sizer.Add(self.quality_selection, 0, wx.ALL | wx.CENTER, 15)
         panel.SetSizer(form_sizer)
         self.Show()
 
@@ -30,6 +34,8 @@ class HelperFrame(wx.Frame):
             self.status_label.SetLabel("Converting")
 
     def on_press(self, _event_):
+        quality_choice = self.quality_selection.GetSelection()
+        quality_selection = ["480", "720", "1080"]
         ydl_opts_audio = {
             'format': 'bestaudio/best',
             'postprocessors': [{
@@ -41,15 +47,15 @@ class HelperFrame(wx.Frame):
         }
 
         ydl_opts_video_audio = {
-            'format': 'bestvideo+bestaudio'
+            'format': 'bestvideo[height<={}]+bestaudio'.format(quality_selection[quality_choice])
         }
 
         ydl_opts_video_noaudio = {
-            'format': 'bestvideo'
+            'format': 'bestvideo[height<={}]'.format(quality_selection[quality_choice])
         }
 
         ydl_opts_video_audio_subs = {
-            'format': 'bestvideo[height<=1080]+bestaudio',
+            'format': 'bestvideo[height<={}]+bestaudio'.format(quality_selection[quality_choice]),
             'writesubtitles': True
         }
 
@@ -61,6 +67,7 @@ class HelperFrame(wx.Frame):
                 print("Downloading and converting. Be patient.")
                 self.status_label.SetLabel("Preparing to download...")
                 format_choice = self.format_selection.GetSelection()
+
                 format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio, ydl_opts_video_audio_subs]
                 with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                     ydl.download([value])
