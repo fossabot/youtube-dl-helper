@@ -15,9 +15,9 @@ class HelperFrame(wx.Frame):
         form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
         form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
         self.format_selection = wx.Choice(panel, choices=available_formats, pos=(50, 10))
-        self.format_selection.SetSelection(0)
+        self.format_selection.SetSelection(1)
         self.quality_selection = wx.Choice(panel, choices=quality_formats, pos=(50, 15))
-        self.quality_selection.SetSelection(2)
+        self.quality_selection.SetSelection(5)
         self.subtitle_box = wx.CheckBox(panel, label="Subtitles?", pos=(50, 12))
         form_sizer.Add(self.format_selection, 0, wx.ALL | wx.CENTER, 7)
         form_sizer.Add(self.subtitle_box, 0, wx.ALL | wx.CENTER, 7)
@@ -66,7 +66,6 @@ class HelperFrame(wx.Frame):
             wx.MessageBox('Nothing was entered in the box. Please enter a valid link', 'Error', wx.OK | wx.ICON_HAND)
         else:
             try:
-                print("Downloading and converting. Be patient.")
                 self.status_label.SetLabel("Preparing to download...")
                 format_choice = self.format_selection.GetSelection()
 
