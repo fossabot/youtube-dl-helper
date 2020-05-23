@@ -7,7 +7,7 @@ class HelperFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
         panel = wx.Panel(self)
-        available_formats = ["audio-hq", "video-hq + audio", "video-hq + no audio"]
+        available_formats = ["audio-hq", "video-hq + audio", "video-hq + no audio", "video+audio + subs"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
         self.status_label = wx.StaticText(panel, label="Waiting for user input...")
@@ -48,6 +48,11 @@ class HelperFrame(wx.Frame):
             'format': 'bestvideo'
         }
 
+        ydl_opts_video_audio_subs = {
+            'format': 'bestvideo[height<=1080]+bestaudio',
+            'writesubtitles': True
+        }
+
         value = self.text_ctrl.GetValue()
         if not value:
             wx.MessageBox('Nothing was entered in the box. Please enter a valid link', 'Error', wx.OK | wx.ICON_HAND)
@@ -56,7 +61,7 @@ class HelperFrame(wx.Frame):
                 print("Downloading and converting. Be patient.")
                 self.status_label.SetLabel("Preparing to download...")
                 format_choice = self.format_selection.GetSelection()
-                format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio]
+                format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio, ydl_opts_video_audio_subs]
                 with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                     ydl.download([value])
                 self.status_label.SetLabel("Waiting for user input...")
