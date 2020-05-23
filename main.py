@@ -50,12 +50,14 @@ class HelperFrame(wx.Frame):
 
         ydl_opts_video_audio = {
             'format': 'bestvideo[height<={}]+bestaudio'.format(quality_selection[quality_choice]),
-            'writesubtitles': self.subtitle_box.IsChecked()
+            'writesubtitles': self.subtitle_box.IsChecked(),
+            'progress_hooks': [self.download_hook]
         }
 
         ydl_opts_video_noaudio = {
             'format': 'bestvideo[height<={}]'.format(quality_selection[quality_choice]),
-            'writesubtitles': self.subtitle_box.IsChecked()
+            'writesubtitles': self.subtitle_box.IsChecked(),
+            'progress_hooks': [self.download_hook]
 
         }
 
