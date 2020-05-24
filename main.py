@@ -11,7 +11,7 @@ class HelperFrame(wx.Frame):
         quality_formats = ["144p", "240p", "360p", "480p", "720p", "1080p"]
         form_sizer = wx.BoxSizer(wx.VERTICAL)
         self.text_ctrl = wx.TextCtrl(panel)
-        self.status_label = wx.StaticText(panel, label="Waiting for user input...")
+        self.status_label = wx.StaticText(panel, label="Waiting for user input")
         form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
         form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
         self.directory_output = wx.DirPickerCtrl(panel)
@@ -82,7 +82,6 @@ class HelperFrame(wx.Frame):
             try:
                 self.status_label.SetLabel("Preparing to download...")
                 format_choice = self.format_selection.GetSelection()
-
                 format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio]
                 with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                     ydl.download([value])
