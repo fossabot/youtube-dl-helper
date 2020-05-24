@@ -9,29 +9,22 @@ class HelperFrame(wx.Frame):
         panel = wx.Panel(self)
         available_formats = ["audio only", "video and audio", "video only"]
         quality_formats = ["144p", "240p", "360p", "480p", "720p", "1080p"]
-        form_sizer = wx.BoxSizer(wx.VERTICAL)
-        self.text_ctrl = wx.TextCtrl(panel)
+        self.text_ctrl = wx.TextCtrl(panel, size=(360, -1))
+        self.text_ctrl.SetPosition((10, 60))
         self.status_label = wx.StaticText(panel, label="Waiting for user input")
-        form_sizer.Add(self.status_label, 0, wx.ALL | wx.TOP, 5)
-        form_sizer.Add(self.text_ctrl, 0, wx.ALL | wx.EXPAND, 5)
-        self.directory_output = wx.DirPickerCtrl(panel)
-        form_sizer.Add(self.directory_output, 0, wx.ALL | wx.CENTER, 4)
-
-        self.format_selection = wx.Choice(panel, choices=available_formats, pos=(50, 10))
+        directory_information = wx.StaticText(panel, label="""Leave box blank to save to program directory.""")
+        directory_information.SetPosition((10, 118))
+        self.directory_output = wx.DirPickerCtrl(panel, size=(360, -1))
+        self.directory_output.SetPosition((10, 135))
+        self.format_selection = wx.Choice(panel, choices=available_formats, pos=(10, 30))
         self.format_selection.SetSelection(1)
-        self.quality_selection = wx.Choice(panel, choices=quality_formats, pos=(50, 15))
+        self.quality_selection = wx.Choice(panel, choices=quality_formats, pos=(140, 30))
         self.quality_selection.SetSelection(5)
-        self.subtitle_box = wx.CheckBox(panel, label="Subtitles?", pos=(50, 12))
-        form_sizer.Add(self.format_selection, 0, wx.ALL | wx.CENTER, 4)
-        form_sizer.Add(self.subtitle_box, 0, wx.ALL | wx.CENTER, 4)
-        form_sizer.Add(self.quality_selection, 0, wx.ALL | wx.CENTER, 4)
+        self.subtitle_box = wx.CheckBox(panel, label="Subtitles?", pos=(210, 33))
         download_button = wx.Button(panel, label='Download')
         download_button.Bind(wx.EVT_BUTTON, self.on_press)
-        form_sizer.Add(download_button, 0, wx.ALL | wx.CENTER, 4)
-        panel.SetSizer(form_sizer)
+        download_button.SetPosition((150, 170))
         self.Show()
-
-
 
     def download_hook(self, d):
         if d['status'] == 'downloading':
