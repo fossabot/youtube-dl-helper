@@ -8,6 +8,7 @@ Grabs the youtube link that the user has inputted and saves it as either an mp3 
 # features
 * download video
 * download mp3
+* save to directory
 * select video quality
 * optionally download subtitles (if available)
 * youtube-dl automatically uses ffmpeg to combine audio + video streams
