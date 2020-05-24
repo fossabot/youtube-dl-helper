@@ -68,7 +68,6 @@ class HelperFrame(wx.Frame):
             try:
                 self.status_label.SetLabel("Preparing to download...")
                 format_choice = self.format_selection.GetSelection()
-
                 format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio]
                 with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
                     ydl.download([value])
