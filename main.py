@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 import wx
 import youtube_dl
 
-
 class HelperFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
@@ -35,10 +34,10 @@ class HelperFrame(wx.Frame):
 
     def on_press(self, _event_):
         file_output = self.directory_output.GetPath()
-        if file_output != "":
-            file_output = file_output + "/%(title)s.%(ext)s"
-        else:
+        if not file_output:
             file_output = "%(title)s.%(ext)s"
+        else:
+            file_output = file_output + "/%(title)s.%(ext)s"
 
         quality_choice = self.quality_selection.GetSelection()
         quality_selection = ["144", "240", "360", "480", "720", "1080"]
@@ -87,7 +86,7 @@ class HelperFrame(wx.Frame):
                     return
             except youtube_dl.utils.DownloadError:
                 self.status_label.SetLabel("Waiting for user input...")
-                wx.MessageBox('Error whilst attempting to download. Check your link as it may be broken!',
+                wx.MessageBox('Error whilst attempting to download. FFMPEG may not be installed!',
                               'Error', wx.OK)
 
 
