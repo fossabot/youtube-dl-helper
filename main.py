@@ -84,9 +84,9 @@ class HelperFrame(wx.Frame):
                     self.Destroy()
                 elif download_finished_message == wx.NO:
                     return
-            except youtube_dl.utils.DownloadError:
+            except youtube_dl.utils.DownloadError as download_error:
                 self.status_label.SetLabel("Waiting for user input...")
-                wx.MessageBox('Error whilst attempting to download. FFMPEG may not be installed!',
+                wx.MessageBox(f'{download_error}',
                               'Error', wx.OK)
 
 
