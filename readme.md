@@ -15,7 +15,14 @@ Grabs the youtube link that the user has inputted and saves it as either an mp3 
 
 
 # requirements
+
+*develping:*
+
 view requirements.txt - make sure you have ffmpeg in your systems PATH or in the same folder
+
+*running:*
+
+Either compile yourself using Pyinstaller or grab the latest release from the release section
 
 # screenshots
 ![Image of project](https://i.imgur.com/6ZizI7t.png)
