@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import wx
 import youtube_dl
 
+
 class HelperFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
