@@ -1,11 +1,12 @@
 from __future__ import unicode_literals
 import wx
 import youtube_dl
-
+from pathlib import Path
 
 class HelperFrame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
+        ffmpeg_file = Path("ffmpeg.exe")
         panel = wx.Panel(self)
         available_formats = ["audio only", "video and audio", "video only"]
         quality_formats = ["144p", "240p", "360p", "480p", "720p", "1080p"]
@@ -14,6 +15,8 @@ class HelperFrame(wx.Frame):
         self.status_label = wx.StaticText(panel, label="Waiting for user input")
         directory_information = wx.StaticText(panel, label="""Leave box blank to save to program directory.""")
         directory_information.SetPosition((10, 118))
+        ffmpeg_check = wx.StaticText(panel, label="Check pending...")
+        ffmpeg_check.SetPosition(((245, 0)))
         self.directory_output = wx.DirPickerCtrl(panel, size=(360, -1))
         self.directory_output.SetPosition((10, 135))
         self.format_selection = wx.Choice(panel, choices=available_formats, pos=(10, 30))
@@ -24,6 +27,7 @@ class HelperFrame(wx.Frame):
         download_button = wx.Button(panel, label='Download')
         download_button.Bind(wx.EVT_BUTTON, self.on_press)
         download_button.SetPosition((150, 170))
+        ffmpeg_check.SetLabel("ffmpeg found") if ffmpeg_file.is_file() else ffmpeg_check.SetLabel("ffmpeg not found!")
         self.Show()
 
     def download_hook(self, d):
