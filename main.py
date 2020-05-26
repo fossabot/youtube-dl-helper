@@ -27,7 +27,13 @@ class HelperFrame(wx.Frame):
         download_button = wx.Button(panel, label='Download')
         download_button.Bind(wx.EVT_BUTTON, self.on_press)
         download_button.SetPosition((150, 170))
-        ffmpeg_check.SetLabel("ffmpeg found") if ffmpeg_file.is_file() else ffmpeg_check.SetLabel("ffmpeg not found!")
+        if ffmpeg_file.is_file():
+            ffmpeg_check.SetLabel("ffmpeg found!")
+            ffmpeg_check.SetForegroundColour((76, 153, 0))
+        else:
+            ffmpeg_check.SetLabel("ffmpeg not found!")
+            ffmpeg_check.SetForegroundColour((255, 0, 0))
+
         self.Show()
 
     def download_hook(self, d):
