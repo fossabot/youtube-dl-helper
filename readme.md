@@ -27,6 +27,8 @@ Either compile yourself using Pyinstaller or grab the latest release from the re
 # screenshots
 ![Image of project](https://i.imgur.com/6ZizI7t.png)
 
+*screenshot from version 1.0*
+
 
 # packaging using pyinstaller
 i've successfully created an .exe which runs fine. used the arguments --name *whatever* --onefile --noconsole
