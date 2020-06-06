@@ -3,6 +3,10 @@
 
 Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv.
 
+**06/06/20 update**
+
+project is on hold for the foreseeable future
+
 
 # features
 * download video
