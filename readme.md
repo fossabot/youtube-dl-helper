@@ -1,7 +1,6 @@
 # youtube-dl-helper
-[![Build Status](https://travis-ci.com/jwbn/youtube-dl-helper.svg?branch=master)](https://travis-ci.com/jwbn/youtube-dl-helper) [![CodeFactor](https://www.codefactor.io/repository/github/jwbn/youtube-dl-helper/badge)](https://www.codefactor.io/repository/github/jwbn/youtube-dl-helper)
 
-Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv.
+Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv. Very early release software so probably doesn't work well
 
 
 
