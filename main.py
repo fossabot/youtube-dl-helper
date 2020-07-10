@@ -3,7 +3,7 @@ import wx
 import youtube_dl
 from pathlib import Path
 
-class HelperFrame(wx.Frame):
+class download_frame(wx.Frame):
     def __init__(self):
         super().__init__(parent=None, title='youtube-dl-helper')
         ffmpeg_file = Path("ffmpeg.exe")
@@ -28,10 +28,10 @@ class HelperFrame(wx.Frame):
         download_button.Bind(wx.EVT_BUTTON, self.on_press)
         download_button.SetPosition((150, 170))
         if ffmpeg_file.is_file():
-            ffmpeg_check.SetLabel("ffmpeg found!")
+            ffmpeg_check.SetLabel("FFMPEG found!")
             ffmpeg_check.SetForegroundColour((76, 153, 0))
         else:
-            ffmpeg_check.SetLabel("ffmpeg not found!")
+            ffmpeg_check.SetLabel("FFMPEG not found!")
             ffmpeg_check.SetForegroundColour((255, 0, 0))
 
         self.Show()
@@ -41,7 +41,7 @@ class HelperFrame(wx.Frame):
             self.status_label.SetLabel("Downloading...")
 
         elif d['status'] == 'finished':
-            self.status_label.SetLabel("Converting")
+            self.status_label.SetLabel("Converting...")
 
     def on_press(self, _event_):
         file_output = self.directory_output.GetPath()
@@ -102,6 +102,6 @@ class HelperFrame(wx.Frame):
 
 
 if __name__ == '__main__':
-    helper_app = wx.App()
-    helper_frame = HelperFrame()
-    helper_app.MainLoop()
+    download_app = wx.App()
+    download_frame = download_frame()
+    download_app.MainLoop()
