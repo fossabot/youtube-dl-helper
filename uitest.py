@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 import PySimpleGUI as sg
 import youtube_dl
 
-
-
 essential_options = [
 
     [
@@ -25,20 +23,11 @@ essential_options = [
 
 ]
 
-
-
 optional_options = [
 
     [sg.Text("Not functioning currently")],
 
-
-
-
-
 ]
-
-
-
 
 layout = [
 
@@ -54,17 +43,13 @@ layout = [
 
 ]
 
-
 window = sg.Window("youtube-dl-helper", layout)
-
-
 
 while True:
 
     event, values = window.read()
 
     if event == "Exit" or event == sg.WIN_CLOSED:
-
         break
     if event == "Download":
         video_link = values["-DLURL-"]
@@ -87,8 +72,5 @@ while True:
                 sg.Popup("Done!", "Video successfully downloaded.")
             except youtube_dl.utils.DownloadError as download_error:
                 sg.Popup("Error whilst downloading", f'{download_error}')
-
-
-
 
 window.close()
