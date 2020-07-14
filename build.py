@@ -3,6 +3,12 @@
 import os
 from cx_Freeze import setup, Executable
 
+target = Executable(
+    script = "uitest.py",
+    base = "Win32GUI",
+    icon = "icon.ico"
+)
+
 setup(
     name = "youtube-dl-helper",
     version = "1.1",
