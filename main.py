@@ -71,7 +71,7 @@ class download_frame(wx.Frame):
         }
 
         ydl_opts_video_noaudio = {
-            'format': 'bestvideo[height<={}, ext=mp4]'.format(quality_selection[quality_choice]),  # TODO Allow choice
+            'format': 'bestvideo[height<={}, ext=mp4]'.format(quality_selection[quality_choice]),
             'writesubtitles': self.subtitle_box.IsChecked(),
             'outtmpl': file_output,
             'progress_hooks': [self.download_hook]
