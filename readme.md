@@ -28,9 +28,11 @@ Either compile yourself using Pyinstaller or grab the latest release from the re
 
 # screenshots
 *screenshot from version 1.0, new ui looks very different.*
+
 ![Image of project](https://i.imgur.com/6ZizI7t.png)
 
 *this is the ui used by the uitest.py file. doesn't look great at the moment but should scale well on different screen types. also much easier to add new features*
+
 ![Image of new UI](https://i.imgur.com/lzdkQuY.png)
 
 # packaging using pyinstaller
