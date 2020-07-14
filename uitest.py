@@ -17,8 +17,8 @@ essential_options = [
     ],
 
     [
-
-        sg.In('URL', size=(25, 1), enable_events=True, key="-DLURL-"),
+        sg.Text("YouTube URL:"),
+        sg.In(size=(25, 1), enable_events=True, key="-DLURL-"),
         sg.Button("Download")
 
     ],
@@ -38,7 +38,7 @@ optional_options = [
 ]
 
 
-# ----- Full layout -----
+
 
 layout = [
 
@@ -55,7 +55,7 @@ layout = [
 ]
 
 
-window = sg.Window("ytdl-helper", layout)
+window = sg.Window("youtube-dl-helper", layout)
 
 
 
@@ -86,7 +86,7 @@ while True:
                     ydl.download([video_link])
                 sg.Popup("Done!", "Video successfully downloaded.")
             except youtube_dl.utils.DownloadError as download_error:
-                sg.Popup("Error whilst downloading", "Something went wrong! Check your link and try again.")
+                sg.Popup("Error whilst downloading", f'{download_error}')
 
 
 
