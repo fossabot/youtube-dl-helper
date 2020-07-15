@@ -33,7 +33,7 @@ Either compile yourself using Pyinstaller or grab the latest release from the re
 
 *this is the ui used by the uitest.py file. doesn't look great at the moment but should scale well on different screen types. also much easier to add new features*
 
-![Image of new UI](https://i.imgur.com/lzdkQuY.png)
+![Image of new UI](https://i.imgur.com/UTnx7g6.png)
 
 # packaging using pyinstaller
 i've successfully created an .exe which runs fine. used the arguments --name *whatever* --onefile --noconsole
