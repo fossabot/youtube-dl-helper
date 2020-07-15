@@ -25,7 +25,9 @@ essential_options = [
 
 optional_options = [
 
-    [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')]
+    [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
+    [sg.Text("Video Resolution:"),
+    sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True, key='-RESCOMBO-')]
 
 ]
 
@@ -52,6 +54,7 @@ while True:
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
     if event == "Download":
+
         video_link = values["-DLURL-"]
         print(video_link)
         file_output_directory = values["-FOLDER-"]
