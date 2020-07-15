@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 import PySimpleGUI as sg
 import youtube_dl
 
-sg.ChangeLookAndFeel('LightGrey2')  # Set theme (https://i.imgur.com/h1SuuOM.png)
+sg.ChangeLookAndFeel('LightBrown3')  # Set theme (https://i.imgur.com/h1SuuOM.png)
 
 essential_options = [
 
