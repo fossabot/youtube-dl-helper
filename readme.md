@@ -49,4 +49,4 @@ every commit is automatically built by travis-ci as well to test that there aren
 | Linux  | Probably                |
 | MacOS   | Probably |
 
-Can't see why they wouldn't work since wxpython is cross platform however I don't have access to a Mac to test. Will try on Linux at some point though. Running pyinstaller with same arguments as above should output a valid executable for these operating systems.
+Can't see why they wouldn't work since pysimplegui is cross platform however I don't have access to a Mac to test. Will try on Linux at some point though. Running pyinstaller with same arguments as above should output a valid executable for these operating systems.
