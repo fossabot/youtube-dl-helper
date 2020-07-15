@@ -2,6 +2,9 @@ from __future__ import unicode_literals
 import PySimpleGUI as sg
 import youtube_dl
 
+sg.ChangeLookAndFeel('LightBrown2')  # Set theme (https://i.imgur.com/h1SuuOM.png)
+
+
 essential_options = [
 
     [
@@ -19,7 +22,7 @@ essential_options = [
         sg.In(size=(25, 1), enable_events=True, key="-DLURL-"),
         sg.Button("Download")
 
-    ],
+    ]
 
 ]
 
@@ -31,6 +34,7 @@ optional_options = [
 
 ]
 
+
 layout = [
 
     [
@@ -39,12 +43,11 @@ layout = [
 
         sg.VSeperator(),
 
-        sg.Column(optional_options),
+        sg.Column(optional_options)
 
     ]
 
 ]
-
 window = sg.Window("youtube-dl-helper", layout)
 
 while True:
