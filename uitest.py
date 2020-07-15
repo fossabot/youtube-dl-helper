@@ -1,3 +1,9 @@
+"""
+This version is no longer actively developed. If you are building the project, please use main;py as that'll receive future patches and 
+feature enhancements.
+"""
+
+
 from __future__ import unicode_literals
 import PySimpleGUI as sg
 import youtube_dl
