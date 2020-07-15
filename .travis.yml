@@ -17,10 +17,11 @@ install:
   # - pip install -r requirements.txt
   - pip install pyinstaller
   - pip install youtube_dl
+  - pip install PySimpleGUI
 
 script:
-  - pyinstaller --onefile --noconsole --name youtube-helper main.py
-  - sleep 1  # Allow pyinstaller to finish writing to stdout
+  - pyinstaller --onefile --noconsole --name ytdl-helper main.py
+  - sleep 1
   - ls -l dist
   - echo "File size should indicate whether it was successful or not!"
   
