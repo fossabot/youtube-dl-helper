@@ -52,7 +52,6 @@ while True:
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
     if event == "Download":
-
         video_link = values["-DLURL-"]
         print(video_link)
         file_output_directory = values["-FOLDER-"]
@@ -61,7 +60,7 @@ while True:
         else:
             file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
         dl_opts = {
-            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4',
+            'format': 'bestvideo+bestaudio',
             'outtmpl': file_output_directory,
             'writesubtitles': values["-SUBS-"]
         }
