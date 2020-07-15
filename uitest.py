@@ -27,7 +27,7 @@ optional_options = [
 
     [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
     [sg.Text("Video Resolution:"),
-    sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True, key='-RESCOMBO-')]
+    sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True, default_value=1080, key='-RESCOMBO-')]
 
 ]
 
@@ -63,7 +63,7 @@ while True:
         else:
             file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
         dl_opts = {
-            'format': 'bestvideo+bestaudio',
+            'format': 'bestvideo[height<={}]+bestaudio'.format(values["-RESCOMBO-"]),
             'outtmpl': file_output_directory,
             'writesubtitles': values["-SUBS-"]
         }
