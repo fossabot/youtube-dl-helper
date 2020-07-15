@@ -1,107 +1,96 @@
 from __future__ import unicode_literals
-import wx
+import PySimpleGUI as sg
 import youtube_dl
-from pathlib import Path
 
-class download_frame(wx.Frame):
-    def __init__(self):
-        super().__init__(parent=None, title='youtube-dl-helper')
-        ffmpeg_file = Path("ffmpeg.exe")
-        panel = wx.Panel(self)
-        available_formats = ["audio only", "video and audio", "video only"]
-        quality_formats = ["144p", "240p", "360p", "480p", "720p", "1080p"]
-        self.text_ctrl = wx.TextCtrl(panel, size=(360, -1))
-        self.text_ctrl.SetPosition((10, 60))
-        self.status_label = wx.StaticText(panel, label="Waiting for user input")
-        directory_information = wx.StaticText(panel, label="""Leave box blank to save to program directory.""")
-        directory_information.SetPosition((10, 118))
-        ffmpeg_check = wx.StaticText(panel, label="Check pending...")
-        ffmpeg_check.SetPosition(((245, 0)))
-        self.directory_output = wx.DirPickerCtrl(panel, size=(360, -1))
-        self.directory_output.SetPosition((10, 135))
-        self.format_selection = wx.Choice(panel, choices=available_formats, pos=(10, 30))
-        self.format_selection.SetSelection(1)
-        self.quality_selection = wx.Choice(panel, choices=quality_formats, pos=(140, 30))
-        self.quality_selection.SetSelection(5)
-        self.subtitle_box = wx.CheckBox(panel, label="Subtitles?", pos=(210, 33))
-        download_button = wx.Button(panel, label='Download')
-        download_button.Bind(wx.EVT_BUTTON, self.on_press)
-        download_button.SetPosition((150, 170))
-        if ffmpeg_file.is_file():
-            ffmpeg_check.SetLabel("FFMPEG found!")
-            ffmpeg_check.SetForegroundColour((76, 153, 0))
+sg.ChangeLookAndFeel('LightGrey2')  # Set theme (https://i.imgur.com/h1SuuOM.png)
+
+essential_options = [
+
+    [
+
+        sg.Text("Download Directory:"),
+
+        sg.In(size=(25, 1), enable_events=True, readonly=True, key="-FOLDER-"),
+
+        sg.FolderBrowse(),
+
+    ],
+
+    [
+        sg.Text("YouTube URL:"),
+        sg.In(size=(25, 1), enable_events=True, key="-DLURL-"),
+        sg.Button("Download")
+
+    ]
+
+]
+
+optional_options = [
+
+    [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
+    [sg.Text("Video Resolution:"),
+     sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True,
+              readonly=True, default_value='1080', key='-RESCOMBO-')],
+    [sg.Combo(['Video and audio', 'Audio only'], enable_events=True,
+              readonly=True, default_value='Video and audio', key='-OUTPUTTYPE-')]
+
+]
+
+layout = [
+
+    [
+
+        sg.Column(essential_options),
+
+        sg.VSeperator(),
+
+        sg.Column(optional_options)
+
+    ]
+
+]
+window = sg.Window("youtube-dl-helper", layout)
+
+while True:
+
+    event, values = window.read()
+
+    if event == "Exit" or event == sg.WIN_CLOSED:
+        break
+    if event == "Download":
+        output_type = None
+        video_link = values["-DLURL-"]
+        print(video_link)
+        file_output_directory = values["-FOLDER-"]
+        if not file_output_directory:
+            file_output_directory = "%(title)s.%(ext)s"
         else:
-            ffmpeg_check.SetLabel("FFMPEG not found!")
-            ffmpeg_check.SetForegroundColour((255, 0, 0))
-
-        self.Show()
-
-    def download_hook(self, d):
-        if d['status'] == 'downloading':
-            self.status_label.SetLabel("Downloading...")
-
-        elif d['status'] == 'finished':
-            self.status_label.SetLabel("Converting...")
-
-    def on_press(self, _event_):
-        file_output = self.directory_output.GetPath()
-        if not file_output:
-            file_output = "%(title)s.%(ext)s"
-        else:
-            file_output = file_output + "/%(title)s.%(ext)s"
-
-        quality_choice = self.quality_selection.GetSelection()
-        quality_selection = ["144", "240", "360", "480", "720", "1080"]
-        ydl_opts_audio = {
+            file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
+        vid_dl_opts = {
+            'format': 'bestvideo[height<={}]+bestaudio'.format(values["-RESCOMBO-"]),
+            'outtmpl': file_output_directory,
+            'writesubtitles': values["-SUBS-"]
+        }
+        audio_dl_opts = {
             'format': 'bestaudio/best',
-            'outtmpl': file_output,
+            'outtmpl': file_output_directory,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
-            }],
-            'progress_hooks': [self.download_hook]
+            }]
         }
 
-        ydl_opts_video_audio = {
-            'format': 'bestvideo[height<={}]+bestaudio'.format(quality_selection[quality_choice]),
-            'writesubtitles': self.subtitle_box.IsChecked(),
-            'outtmpl': file_output,
-            'progress_hooks': [self.download_hook]
-        }
+        output_type = vid_dl_opts if values['-OUTPUTTYPE-'] == "Video and audio" else audio_dl_opts
 
-        ydl_opts_video_noaudio = {
-            'format': 'bestvideo[height<={}, ext=mp4]'.format(quality_selection[quality_choice]),
-            'writesubtitles': self.subtitle_box.IsChecked(),
-            'outtmpl': file_output,
-            'progress_hooks': [self.download_hook]
-
-        }
-
-        value = self.text_ctrl.GetValue()
-        if not value:
-            wx.MessageBox('Nothing was entered in the box. Please enter a valid link', 'Error', wx.OK | wx.ICON_HAND)
+        if not video_link:
+            sg.Popup('No link', 'No valid link entered.')
         else:
             try:
-                self.status_label.SetLabel("Preparing to download...")
-                format_choice = self.format_selection.GetSelection()
-                format_configuration = [ydl_opts_audio, ydl_opts_video_audio, ydl_opts_video_noaudio]
-                with youtube_dl.YoutubeDL(format_configuration[format_choice]) as ydl:
-                    ydl.download([value])
-                self.status_label.SetLabel("Waiting for user input...")
-                download_finished_message = wx.MessageBox('Download has finished, would you like to exit?',
-                                                          'Download complete', wx.YES_NO)
-                if download_finished_message == wx.YES:
-                    self.Destroy()
-                elif download_finished_message == wx.NO:
-                    return
+                with youtube_dl.YoutubeDL(output_type) as ydl:
+                    ydl.download([video_link])
+                sg.Popup("Done!", "Video successfully downloaded.")
             except youtube_dl.utils.DownloadError as download_error:
-                self.status_label.SetLabel("Waiting for user input...")
-                wx.MessageBox(f'{download_error}',
-                              'Error', wx.OK)
+                sg.Popup("Error whilst downloading", f'{download_error}')
 
-
-if __name__ == '__main__':
-    download_app = wx.App()
-    download_frame = download_frame()
-    download_app.MainLoop()
+window.close()
