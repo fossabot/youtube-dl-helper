@@ -23,8 +23,9 @@ Grabs the youtube link that the user has inputted and saves it as either an mp3 
 view requirements.txt - make sure you have ffmpeg in your systems PATH or in the same folder
 
 *running:*
+Every release is automatically built and stored on the releases page. You can download a fresh build from there.
 
-Either compile yourself using Pyinstaller or grab the latest release from the release section
+Alternatively, you can download the source code and compile it using PyInstaller.
 
 # screenshots
 *screenshot from version 1.0, new ui looks very different.*
