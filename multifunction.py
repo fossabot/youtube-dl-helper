@@ -27,7 +27,6 @@ essential_options = [
     [
         sg.Text("USING THE NIGHTLY FFMPEG BUILD IS HIGHLY RECOMMENDED")
 
-
     ]
 
 ]
@@ -63,7 +62,6 @@ layout = [
 window = sg.Window("youtube-dl-helper", layout)
 
 
-
 def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid_url):
     vid_dl_opts = {
         'format': 'bestvideo[height<={}]+bestaudio'.format(resolution),
@@ -92,11 +90,6 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         sg.Popup("Error whilst downloading", f'{download_error}')
 
 
-
-
-
-
-
 while True:
 
     event, values = window.read()
@@ -111,15 +104,12 @@ while True:
             window.FindElement('-PREFFORMAT-').Update(disabled=False)
 
     if event == "Download":
-        output_type = None
         video_link = values["-DLURL-"]
-        print(video_link)
         file_output_directory = values["-FOLDER-"]
         if not file_output_directory:
             file_output_directory = "%(title)s.%(ext)s"
         else:
             file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
-
         if not video_link:
             sg.Popup('No link', 'No valid link entered.')
         else:
