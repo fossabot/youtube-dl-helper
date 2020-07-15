@@ -31,7 +31,7 @@ Either compile yourself using Pyinstaller or grab the latest release from the re
 
 ![Image of project](https://i.imgur.com/6ZizI7t.png)
 
-*this is the ui used by the uitest.py file. doesn't look great at the moment but should scale well on different screen types. also much easier to add new features*
+*this is the ui used by the uitest.py file (out of date). doesn't look great at the moment but should scale well on different screen types. also much easier to add new features*
 
 ![Image of new UI](https://i.imgur.com/UTnx7g6.png)
 
