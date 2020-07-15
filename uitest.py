@@ -2,8 +2,7 @@ from __future__ import unicode_literals
 import PySimpleGUI as sg
 import youtube_dl
 
-sg.ChangeLookAndFeel('LightBrown2')  # Set theme (https://i.imgur.com/h1SuuOM.png)
-
+sg.ChangeLookAndFeel('LightGrey2')  # Set theme (https://i.imgur.com/h1SuuOM.png)
 
 essential_options = [
 
@@ -11,7 +10,7 @@ essential_options = [
 
         sg.Text("Download Directory:"),
 
-        sg.In(size=(25, 1), enable_events=True, key="-FOLDER-"),
+        sg.In(size=(25, 1), enable_events=True, readonly=True, key="-FOLDER-"),
 
         sg.FolderBrowse(),
 
@@ -30,10 +29,10 @@ optional_options = [
 
     [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
     [sg.Text("Video Resolution:"),
-    sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True, default_value=1080, key='-RESCOMBO-')]
+     sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True,
+              readonly=True, default_value=1080, key='-RESCOMBO-')]
 
 ]
-
 
 layout = [
 
