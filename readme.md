@@ -2,7 +2,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper/badge)](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper) [![Build Status](https://travis-ci.com/wbnk/youtube-dl-helper.svg?branch=master)](https://travis-ci.com/wbnk/youtube-dl-helper)
 
 
-Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv. Very early release software so probably doesn't work well
+Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv. Very early release software so probably doesn't work well.
 
 
 
