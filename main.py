@@ -21,6 +21,12 @@ essential_options = [
         sg.In(size=(25, 1), enable_events=True, key="-DLURL-"),
         sg.Button("Download")
 
+    ],
+
+    [
+        sg.Text("USING THE NIGHTLY FFMPEG BUILD IS HIGHLY RECOMMENDED")
+
+
     ]
 
 ]
@@ -31,8 +37,12 @@ optional_options = [
     [sg.Text("Video Resolution:"),
      sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True,
               readonly=True, default_value='1080', key='-RESCOMBO-')],
-    [sg.Combo(['Video and audio', 'Audio only'], enable_events=True,
-              readonly=True, default_value='Video and audio', key='-OUTPUTTYPE-')]
+    [sg.Text("File Type:"),
+     sg.Combo(['Video and audio', 'Audio only'], enable_events=True,
+              readonly=True, default_value='Video and audio', key='-OUTPUTTYPE-')],
+    [sg.Text("Vid format:"),
+     sg.Combo(['mp4', 'mkv', 'flv', 'avi', 'ogg', 'webm'], enable_events=True,
+              readonly=True, default_value='mp4', key='-PREFFORMAT-')]
 
 ]
 
@@ -57,6 +67,13 @@ while True:
 
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
+
+    if event == "-OUTPUTTYPE-":
+        if values['-OUTPUTTYPE-'] == 'Audio only':
+            window.FindElement('-PREFFORMAT-').Update(disabled=True)
+        else:
+            window.FindElement('-PREFFORMAT-').Update(disabled=False)
+
     if event == "Download":
         output_type = None
         video_link = values["-DLURL-"]
@@ -69,7 +86,11 @@ while True:
         vid_dl_opts = {
             'format': 'bestvideo[height<={}]+bestaudio'.format(values["-RESCOMBO-"]),
             'outtmpl': file_output_directory,
-            'writesubtitles': values["-SUBS-"]
+            'writesubtitles': values["-SUBS-"],
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': values["-PREFFORMAT-"]  # avi flv mkv mp4 ogg webm
+            }]
         }
         audio_dl_opts = {
             'format': 'bestaudio/best',
