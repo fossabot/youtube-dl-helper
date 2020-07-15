@@ -30,7 +30,9 @@ optional_options = [
     [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
     [sg.Text("Video Resolution:"),
      sg.Combo(['144', '240', '360', '480', '720', '1080'], enable_events=True,
-              readonly=True, default_value=1080, key='-RESCOMBO-')]
+              readonly=True, default_value='1080', key='-RESCOMBO-')],
+    [sg.Combo(['Video and audio', 'Audio only'], enable_events=True,
+              readonly=True, default_value='Video and audio', key='-OUTPUTTYPE-')]
 
 ]
 
@@ -56,7 +58,7 @@ while True:
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
     if event == "Download":
-
+        output_type = None
         video_link = values["-DLURL-"]
         print(video_link)
         file_output_directory = values["-FOLDER-"]
@@ -64,16 +66,28 @@ while True:
             file_output_directory = "%(title)s.%(ext)s"
         else:
             file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
-        dl_opts = {
+        vid_dl_opts = {
             'format': 'bestvideo[height<={}]+bestaudio'.format(values["-RESCOMBO-"]),
             'outtmpl': file_output_directory,
             'writesubtitles': values["-SUBS-"]
         }
+        audio_dl_opts = {
+            'format': 'bestaudio/best',
+            'outtmpl': file_output_directory,
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }]
+        }
+
+        output_type = vid_dl_opts if values['-OUTPUTTYPE-'] == "Video and audio" else audio_dl_opts
+
         if not video_link:
             sg.Popup('No link', 'No valid link entered.')
         else:
             try:
-                with youtube_dl.YoutubeDL(dl_opts) as ydl:
+                with youtube_dl.YoutubeDL(output_type) as ydl:
                     ydl.download([video_link])
                 sg.Popup("Done!", "Video successfully downloaded.")
             except youtube_dl.utils.DownloadError as download_error:
