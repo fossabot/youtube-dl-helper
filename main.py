@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 import PySimpleGUI as sg
 import youtube_dl
 
-sg.ChangeLookAndFeel('LightBrown3')
+sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
 essential_options = [
 
