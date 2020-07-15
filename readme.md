@@ -2,7 +2,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper/badge)](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper) [![Build Status](https://travis-ci.com/wbnk/youtube-dl-helper.svg?branch=master)](https://travis-ci.com/wbnk/youtube-dl-helper)
 
 
-Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv. Very early release software so probably doesn't work well
+Grabs the youtube link that the user has inputted and saves it as either an mp3 or mkv. Very early release software so probably doesn't work well.
 
 
 
@@ -23,8 +23,9 @@ Grabs the youtube link that the user has inputted and saves it as either an mp3 
 view requirements.txt - make sure you have ffmpeg in your systems PATH or in the same folder
 
 *running:*
+Every release is automatically built and stored on the releases page. You can download a fresh build from there.
 
-Either compile yourself using Pyinstaller or grab the latest release from the release section
+Alternatively, you can download the source code and compile it using PyInstaller.
 
 # screenshots
 *screenshot from version 1.0, new ui looks very different.*
@@ -48,4 +49,4 @@ every commit is automatically built by travis-ci as well to test that there aren
 | Linux  | Probably                |
 | MacOS   | Probably |
 
-Can't see why they wouldn't work since wxpython is cross platform however I don't have access to a Mac to test. Will try on Linux at some point though. Running pyinstaller with same arguments as above should output a valid executable for these operating systems.
+Can't see why they wouldn't work since pysimplegui is cross platform however I don't have access to a Mac to test. Will try on Linux at some point though. Running pyinstaller with same arguments as above should output a valid executable for these operating systems.
