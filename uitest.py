@@ -25,7 +25,7 @@ essential_options = [
 
 optional_options = [
 
-    [sg.Text("Not functioning currently")],
+    [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')]
 
 ]
 
@@ -52,6 +52,7 @@ while True:
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
     if event == "Download":
+
         video_link = values["-DLURL-"]
         print(video_link)
         file_output_directory = values["-FOLDER-"]
@@ -61,7 +62,8 @@ while True:
             file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
         dl_opts = {
             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4',
-            'outtmpl': file_output_directory
+            'outtmpl': file_output_directory,
+            'writesubtitles': values["-SUBS-"]
         }
         if not video_link:
             sg.Popup('No link', 'No valid link entered.')
