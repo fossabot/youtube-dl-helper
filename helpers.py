@@ -30,3 +30,11 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             sg.Popup("Success", "Video Downloaded!")
     except youtube_dl.utils.DownloadError as download_error:
         sg.Popup("Download error!", f"{download_error}")
+
+
+def calculate_directory(user_output_directory):
+    if not user_output_directory:
+        user_output_directory = "%(title)s.%(ext)s"
+    else:
+        user_output_directory = user_output_directory + "/%(title)s.%(ext)s"
+    return user_output_directory

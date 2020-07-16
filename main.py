@@ -73,16 +73,13 @@ while True:
 
     if event == "Download":
         video_link = values["-DLURL-"]
-        file_output_directory = values["-FOLDER-"]
-        if not file_output_directory:
-            file_output_directory = "%(title)s.%(ext)s"
-        else:
-            file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
+        file_output_directory = helpers.calculate_directory(values["-FOLDER-"])
         if not video_link:
             sg.Popup('No link', 'No valid link entered.')
         else:
             helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
                                    values['-PREFFORMAT-'],
                                    values['-OUTPUTTYPE-'], video_link)
+
 
 window.close()
