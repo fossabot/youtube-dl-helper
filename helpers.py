@@ -2,6 +2,8 @@ import youtube_dl
 import PySimpleGUI as sg
 
 
+#  Video download function
+
 def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid_url):
     vid_dl_opts = {
         'format': 'bestvideo[height<={}]+bestaudio'.format(resolution),

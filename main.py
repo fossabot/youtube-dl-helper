@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 import PySimpleGUI as sg
-import youtube_dl
+import helpers
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
@@ -25,8 +25,6 @@ essential_options = [
 
     [
         sg.Text("USING THE NIGHTLY FFMPEG BUILD IS HIGHLY RECOMMENDED")
-
-
     ]
 
 ]
@@ -62,9 +60,8 @@ layout = [
 window = sg.Window("youtube-dl-helper", layout)
 
 while True:
-
+    download_thread = None
     event, values = window.read()
-
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
 
@@ -75,43 +72,17 @@ while True:
             window.FindElement('-PREFFORMAT-').Update(disabled=False)
 
     if event == "Download":
-        output_type = None
         video_link = values["-DLURL-"]
-        print(video_link)
         file_output_directory = values["-FOLDER-"]
         if not file_output_directory:
             file_output_directory = "%(title)s.%(ext)s"
         else:
             file_output_directory = file_output_directory + "/%(title)s.%(ext)s"
-        vid_dl_opts = {
-            'format': 'bestvideo[height<={}]+bestaudio'.format(values["-RESCOMBO-"]),
-            'outtmpl': file_output_directory,
-            'writesubtitles': values["-SUBS-"],
-            'postprocessors': [{
-                'key': 'FFmpegVideoConvertor',
-                'preferedformat': values["-PREFFORMAT-"]  # avi flv mkv mp4 ogg webm
-            }]
-        }
-        audio_dl_opts = {
-            'format': 'bestaudio/best',
-            'outtmpl': file_output_directory,
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }]
-        }
-
-        output_type = vid_dl_opts if values['-OUTPUTTYPE-'] == "Video and audio" else audio_dl_opts
-
         if not video_link:
             sg.Popup('No link', 'No valid link entered.')
         else:
-            try:
-                with youtube_dl.YoutubeDL(output_type) as ydl:
-                    ydl.download([video_link])
-                sg.Popup("Done!", "Video successfully downloaded.")
-            except youtube_dl.utils.DownloadError as download_error:
-                sg.Popup("Error whilst downloading", f'{download_error}')
+            helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
+                                   values['-PREFFORMAT-'],
+                                   values['-OUTPUTTYPE-'], video_link)
 
 window.close()
