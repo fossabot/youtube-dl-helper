@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 import PySimpleGUI as sg
-import youtube_dl
-import threading
+import helpers
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
@@ -25,7 +24,8 @@ essential_options = [
     ],
 
     [
-        sg.Text("USING THE NIGHTLY FFMPEG BUILD IS HIGHLY RECOMMENDED")
+        sg.Text("USING THE NIGHTLY FFMPEG BUILD IS HIGHLY RECOMMENDED"),
+        sg.Button("Testfunc")
 
     ]
 
@@ -61,41 +61,13 @@ layout = [
 ]
 window = sg.Window("youtube-dl-helper", layout)
 
-
-def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid_url):
-    vid_dl_opts = {
-        'format': 'bestvideo[height<={}]+bestaudio'.format(resolution),
-        'outtmpl': file_dir,
-        'writesubtitles': subtitles,
-        'postprocessors': [{
-            'key': 'FFmpegVideoConvertor',
-            'preferedformat': prefformat  # avi flv mkv mp4 ogg webm
-        }]
-    }
-    audio_dl_opts = {
-        'format': 'bestaudio/best',
-        'outtmpl': file_dir,
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }]
-    }
-    output_vid_type = vid_dl_opts if output_type == "Video and audio" else audio_dl_opts
-    try:
-        with youtube_dl.YoutubeDL(output_vid_type) as ydl:
-            ydl.download([vid_url])
-        sg.Popup("Done!", "Video successfully downloaded.")
-    except youtube_dl.utils.DownloadError as download_error:
-        sg.Popup("Error whilst downloading", f'{download_error}')
-
-
 while True:
-
+    download_thread = None
     event, values = window.read()
-
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
+    if event == "Testfunc":
+        print("funcy test!")
 
     if event == "-OUTPUTTYPE-":
         if values['-OUTPUTTYPE-'] == 'Audio only':
@@ -113,7 +85,8 @@ while True:
         if not video_link:
             sg.Popup('No link', 'No valid link entered.')
         else:
-            download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'], values['-PREFFORMAT-'],
-                           values['-OUTPUTTYPE-'], video_link)
+            helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
+                                   values['-PREFFORMAT-'],
+                                   values['-OUTPUTTYPE-'], video_link)
 
 window.close()
