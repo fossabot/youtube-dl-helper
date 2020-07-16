@@ -28,11 +28,7 @@ Every release is automatically built and stored on the releases page. You can do
 Alternatively, you can download the source code and compile it using PyInstaller.
 
 # screenshots
-*screenshot from version 1.0, new ui looks very different.*
-
-![Image of project](https://i.imgur.com/6ZizI7t.png)
-
-*this is the ui used by the uitest.py file (out of date). doesn't look great at the moment but should scale well on different screen types. also much easier to add new features*
+*screenshot from an older build (2.1)
 
 ![Image of new UI](https://i.imgur.com/UTnx7g6.png)
 
