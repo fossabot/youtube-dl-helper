@@ -28,7 +28,7 @@ Every release is automatically built and stored on the releases page. You can do
 Alternatively, you can download the source code and compile it using PyInstaller.
 
 # screenshots
-*screenshot from an older build (2.1)
+*screenshot from an older build (2.1)*
 
 ![Image of new UI](https://i.imgur.com/UTnx7g6.png)
 
