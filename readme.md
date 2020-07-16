@@ -28,9 +28,9 @@ Every release is automatically built and stored on the releases page. You can do
 Alternatively, you can download the source code and compile it using PyInstaller.
 
 # screenshots
-*screenshot from an older build (2.0.1)*
+*current build 2.1 ui*
 
-![Image of new UI](https://i.imgur.com/UTnx7g6.png)
+![Image of new UI](https://i.imgur.com/NiUybyY.png)
 
 # packaging using pyinstaller
 i've successfully created an .exe which runs fine. used the arguments --name *whatever* --onefile --noconsole
