@@ -2,13 +2,16 @@ import youtube_dl
 import PySimpleGUI as sg
 import requests
 
-def check_version(local_version):
+def check_version(local_version, dev_version):
     response = requests.get("https://wbnk.net/ytdl-vers.txt")
     data = response.text
     server_version = data[0] + data[1] + data[2]
-    if server_version != local_version:
-        sg.Popup("Out of date", """A newer version is available at Github! Update the software
-                 to receive the latest feature updates.""")
+    if not dev_version:
+        if server_version != local_version:
+            sg.Popup("Out of date", """A newer version is available at Github! Update the software
+                     to receive the latest feature updates.""")
+    else:
+        print("dev version! skipping update check.")
 
 
 

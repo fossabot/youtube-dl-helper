@@ -4,7 +4,9 @@ import helpers
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
-local_version = "2.2"
+local_version = "1.1"
+dev_version = True
+
 
 essential_options = [
 
@@ -60,7 +62,7 @@ layout = [
 
 ]
 window = sg.Window("youtube-dl-helper", layout)
-helpers.check_version(local_version)
+helpers.check_version(local_version, dev_version)
 
 while True:
     download_thread = None
