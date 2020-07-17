@@ -13,11 +13,12 @@ Simple project that allows users to download YouTube videos to a specified folde
 * Select desired video resolution
 * Download video subtitles (if available)
 * Select where to download
+* Automatically checks for updates and informs the user if there is an update available (user must manually update for security)
 
 
 # screenshots
 
-*current build 2.1 ui*
+*current build 1.1 ui*
 
 ![Image of new UI](https://i.imgur.com/NiUybyY.png)
 
