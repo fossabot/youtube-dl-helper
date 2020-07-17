@@ -5,7 +5,7 @@ import helpers
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
 local_version = "1.1"
-dev_version = True
+dev_version = True  # Set to false to override dev check
 
 
 essential_options = [

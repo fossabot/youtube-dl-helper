@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 import requests
 
 def check_version(local_version, dev_version):
-    response = requests.get("https://wbnk.net/ytdl-vers.txt")
+    response = requests.get("https://wbnk.net/ytdl-vers.txt")  # URL must be live else check will fail
     data = response.text
     server_version = data[0] + data[1] + data[2]
     if not dev_version:
