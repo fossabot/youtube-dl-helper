@@ -1,8 +1,18 @@
 import youtube_dl
 import PySimpleGUI as sg
+import requests
+
+def check_version(local_version):
+    response = requests.get("https://wbnk.net/ytdl-vers.txt")
+    data = response.text
+    server_version = data[0] + data[1] + data[2]
+    if server_version != local_version:
+        sg.Popup("Out of date", """A newer version is available at Github! Update the software
+                 to receive the latest feature updates.""")
 
 
-#  Video download function
+
+
 
 def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid_url):
     vid_dl_opts = {
@@ -11,7 +21,7 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         'writesubtitles': subtitles,
         'postprocessors': [{
             'key': 'FFmpegVideoConvertor',
-            'preferedformat': prefformat  # avi flv mkv mp4 ogg webm
+            'preferedformat': prefformat
         }]
     }
     audio_dl_opts = {
@@ -41,3 +51,5 @@ def calculate_directory(user_output_directory):
     else:
         user_output_directory = user_output_directory + "/%(title)s.%(ext)s"
     return user_output_directory
+
+
