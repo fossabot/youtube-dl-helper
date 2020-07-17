@@ -24,11 +24,14 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         }]
     }
     output_vid_type = vid_dl_opts if output_type == "Video and audio" else audio_dl_opts
+    sg.PopupAnimated(sg.DEFAULT_BASE64_LOADING_GIF, background_color='orange', time_between_frames=100)
     try:
         with youtube_dl.YoutubeDL(output_vid_type) as ydl:
             ydl.download([vid_url])
+            sg.PopupAnimated(None)
             sg.Popup("Success", "Video Downloaded!")
     except youtube_dl.utils.DownloadError as download_error:
+        sg.PopupAnimated(None)
         sg.Popup("Download error!", f"{download_error}")
 
 
