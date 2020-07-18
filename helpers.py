@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 import requests
 
 def check_version(local_version, dev_version):
-    response = requests.get("https://wbnk.net/ytdl-vers.txt")  # URL must be live else check will fail
+    response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/release_version.txt")
     data = response.text
     server_version = data[0] + data[1] + data[2]
     if not dev_version:
