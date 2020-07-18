@@ -24,5 +24,6 @@ Simple project that allows users to download YouTube videos to a specified folde
 
 
 # Installation 
+**FFMPEG MUST BE INSTALLED ELSE THE APPLICATION WON'T WORK. DOWNLOAD FFMPEG [HERE](https://ffmpeg.org/download.html). EITHER ADD THE 'BIN' FOLDER TO PATH OR PUT THE FFMPEG EXECUTABLE IN THE SAME FOLDER AS THE YTDL-HELPER EXECUTABLE.
 
 Grab the latest release from [here](https://github.com/wbnk/youtube-dl-helper/releases). New releases are automatically uploaded to the releases page.
