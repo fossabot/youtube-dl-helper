@@ -25,6 +25,3 @@ class Test(TestCase):
         dev_version = True
         dev_version_check = helpers.check_version("0.0", dev_version)
         self.assertEqual(dev_version_check, "dev-ver")
-
-
-
