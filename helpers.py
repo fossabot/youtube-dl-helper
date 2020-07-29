@@ -11,7 +11,8 @@ def check_version(local_version, dev_version):
             sg.Popup("Out of date", """A newer version is available at Github! Update the software
                      to receive the latest feature updates.""")
             return False
-        return True
+        else:
+            return True
     else:
         print("dev version! skipping update check.")
         return "dev-ver"
@@ -57,5 +58,3 @@ def calculate_directory(user_output_directory):
     else:
         user_output_directory = user_output_directory + "/%(title)s.%(ext)s"
     return user_output_directory
-
-
