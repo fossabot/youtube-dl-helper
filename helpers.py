@@ -11,8 +11,7 @@ def check_version(local_version, dev_version):
             sg.Popup("Out of date", """A newer version is available at Github! Update the software
                      to receive the latest feature updates.""")
             return False
-        else:
-            return True
+        return True
     else:
         print("dev version! skipping update check.")
         return "dev-ver"
