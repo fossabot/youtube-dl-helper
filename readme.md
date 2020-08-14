@@ -25,7 +25,7 @@ Simple project that allows users to download YouTube videos to a specified folde
 
 
 # Download
-**You need to have ffmpeg downloaded. You can download it from (here)[https://ffmpeg.org/download.html], windows builds are available (here)[https://ffmpeg.zeranoe.com/builds/]. Please use the latest version available else you might experience bugs. Place ffmpeg.exe either in your system's path or in the same folder as the executable.**
+**You need to have ffmpeg downloaded. You can download it from [here](https://ffmpeg.org/download.html), windows builds are available [here](https://ffmpeg.zeranoe.com/builds/). Please use the latest version available else you might experience bugs. Place ffmpeg.exe either in your system's path or in the same folder as the executable.**
 
 You can download the current stable release from [here](https://github.com/wbnk/youtube-dl-helper/releases). The current stable release version is **1.1**.
 
