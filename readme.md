@@ -17,14 +17,16 @@ Simple project that allows users to download YouTube videos to a specified folde
 * Automatically checks for updates and informs the user if there is an update available (user must manually update for security reasons)
 
 
-# screenshots
+# Screenshots
 
 *current build 1.1 ui*
 
 ![Image of new UI](https://i.imgur.com/NiUybyY.png)
 
 
-# Installation 
-**FFMPEG MUST BE INSTALLED ELSE THE APPLICATION WON'T WORK. DOWNLOAD FFMPEG [HERE](https://ffmpeg.org/download.html). EITHER ADD THE 'BIN' FOLDER TO PATH OR PUT THE FFMPEG EXECUTABLE IN THE SAME FOLDER AS THE YTDL-HELPER EXECUTABLE.**
+# Download
+**You need to have ffmpeg downloaded. You can download it from (here)[https://ffmpeg.org/download.html], windows builds are available (here)[https://ffmpeg.zeranoe.com/builds/]. Please use the latest version available else you might experience bugs. Place ffmpeg.exe either in your system's path or in the same folder as the executable.**
 
-Grab the latest release from [here](https://github.com/wbnk/youtube-dl-helper/releases). New releases are automatically uploaded to the releases page.
+You can download the current stable release from [here](https://github.com/wbnk/youtube-dl-helper/releases). The current stable release version is **1.1**.
+
+Alternatively, you can clone the repo and run the latest version of the code. The dev_version variable is set to true which will bypass the "update available" message box. Make sure to install the requirements from requirements.txt. 
