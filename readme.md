@@ -4,8 +4,9 @@
 
 Simple project that allows users to download YouTube videos to a specified folder. User can also select desired resolution, whether they want an MP3 or video and what format the video should be.
 
+# Rewrite
 
-
+The youtube_dl dependency will be changing to PyTube. The current stable version is **1.1** (this version uses youtube_dl). The rewrite progress is being tracked [here](https://github.com/wbnk/youtube-dl-helper/projects/3)
 
 # Features
 * Download a video
