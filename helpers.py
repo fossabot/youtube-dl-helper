@@ -1,6 +1,7 @@
-import youtube_dl
+from pytube import YouTube
 import PySimpleGUI as sg
 import requests
+
 
 def check_version(local_version, dev_version):
     response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/release_version.txt")
@@ -16,38 +17,24 @@ def check_version(local_version, dev_version):
     return "dev-ver"
 
 
-
-
-
 def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid_url):
-    vid_dl_opts = {
-        'format': 'bestvideo[height<={}]+bestaudio'.format(resolution),
-        'outtmpl': file_dir,
-        'writesubtitles': subtitles,
-        'postprocessors': [{
-            'key': 'FFmpegVideoConvertor',
-            'preferedformat': prefformat
-        }]
-    }
-    audio_dl_opts = {
-        'format': 'bestaudio/best',
-        'outtmpl': file_dir,
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }]
-    }
-    output_vid_type = vid_dl_opts if output_type == "Video and audio" else audio_dl_opts
-    sg.PopupAnimated(sg.DEFAULT_BASE64_LOADING_GIF, background_color='orange', time_between_frames=100)
-    try:
-        with youtube_dl.YoutubeDL(output_vid_type) as ydl:
-            ydl.download([vid_url])
-            sg.PopupAnimated(None)
-            sg.Popup("Success", "Video Downloaded!")
-    except youtube_dl.utils.DownloadError as download_error:
-        sg.PopupAnimated(None)
-        sg.Popup("Download error!", download_error)
+    video = YouTube(vid_url)
+    if resolution != "1080p":  # Code for potential progressive streams
+        download_object = video.streams.filter(resolution=resolution,
+                                               file_extension="mp4", progressive="True").first()
+        if download_object:
+            print("Successfully found progressive stream! No processing required")
+            download_object.download()
+            print("Successfully grabbed video + audio")
+            sg.Popup("Success", "Video successfully downloaded!")
+        else:
+            print("Couldn't find a progressive stream! Processing WILL be required.")
+            video_object = video.streams.filter(resolution=resolution,
+                                                   file_extension="mp4", adaptive="True").first()
+            video_object.download()
+            print("Successfully grabbed video")
+
+
 
 
 def calculate_directory(user_output_directory):
