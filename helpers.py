@@ -2,6 +2,7 @@ import youtube_dl
 import PySimpleGUI as sg
 import requests
 
+
 def check_version(local_version, dev_version):
     response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/release_version.txt")
     data = response.text
