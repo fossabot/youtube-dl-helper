@@ -13,7 +13,7 @@ def check_version(local_version, dev_version):
                      to receive the latest feature updates.""")
             return False
         return True
-    print("dev version! skipping update check.")
+    print("Dev version! skipping update check.")
     return "dev-ver"
 
 
