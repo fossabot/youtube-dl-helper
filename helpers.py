@@ -4,9 +4,9 @@ import requests
 
 
 def check_version(local_version, dev_version):
-    response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/release_version.txt")
-    data = response.text
-    server_version = data[0] + data[1] + data[2]
+    response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/version_info.json")
+    data = response.json()
+    server_version = data['stable-version']
     if not dev_version:
         if server_version != local_version:
             sg.Popup("Out of date", """A newer version is available at Github! Update the software
