@@ -38,8 +38,12 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         print("Couldn't find a progressive stream! Processing WILL be required.")
         audio_object = video.streams.filter(only_audio=True, mime_type="audio/mp4").first()
         video_object = video.streams.filter(resolution=resolution, file_extension="mp4").first()
-        audio_object.download(filename=f'audio-{current_time}')
-        video_object.download(filename=f'video-{current_time}')
+        try:
+            audio_object.download(filename=f'audio-{current_time}')
+            video_object.download(filename=f'video-{current_time}')
+        except AttributeError as download_error:
+            sg.Popup("Download fail", "Couldn't find a stream at your desired resolution. Choose a lower quality")
+            return
         if not file_dir:
             ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy output-{current_time}.mkv')
             os.remove(f'audio-{current_time}.mp4')
@@ -56,3 +60,4 @@ def calculate_directory(user_output_directory):
         return
     else:
         return user_output_directory
+

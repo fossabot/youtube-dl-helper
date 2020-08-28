@@ -43,7 +43,7 @@ optional_options = [
     [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
     [sg.Text("Video Resolution:"),
      sg.Combo(['144p', '240p', '360p', '480p', '720p', '1080p'], enable_events=True,
-              readonly=True, default_value='1080', key='-RESCOMBO-')],
+              readonly=True, default_value='1080p', key='-RESCOMBO-')],
     [sg.Text("File Type:"),
      sg.Combo(['Video and audio', 'Audio only'], enable_events=True,
               readonly=True, default_value='Video and audio', key='-OUTPUTTYPE-')],
@@ -86,6 +86,11 @@ while True:
             print(video_link.title)
             window.FindElement("-VIDEOTITLE-").Update(video_link.title)
             window.FindElement("-DLBUTTON-").Update(disabled=False)
+            if video_link.age_restricted:
+                age_restricted = True
+                sg.popup("Warning", "Video is age restricted. Download MAY fail.")
+
+
 
         except pytube.exceptions.RegexMatchError as invalid_url_error:
             sg.Popup("Error", "Invalid URL, check and try again.")
