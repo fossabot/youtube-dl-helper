@@ -86,6 +86,8 @@ while True:
             print(video_link.title)
             window.FindElement("-VIDEOTITLE-").Update(video_link.title)
             window.FindElement("-DLBUTTON-").Update(disabled=False)
+            resolutions_available = helpers.calculate_available_resolutions(video_link)
+            window.FindElement("-RESCOMBO-").Update(values=resolutions_available)
             if video_link.age_restricted:
                 age_restricted = True
                 sg.popup("Warning", "Video is age restricted. Download MAY fail.")
@@ -100,5 +102,6 @@ while True:
         helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
                                values['-PREFFORMAT-'],
                                values['-OUTPUTTYPE-'], video_link)
+        window.FindElement('-DLBUTTON-').Update(disabled=True)
 
 window.close()

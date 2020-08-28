@@ -5,6 +5,7 @@ import time
 from pyffmpeg import FFmpeg
 import os
 
+
 def check_version(local_version, dev_version):
     response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/release_version.txt")
     data = response.text
@@ -45,14 +46,19 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             sg.Popup("Download fail", "Couldn't find a stream at your desired resolution. Choose a lower quality")
             return
         if not file_dir:
-            ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
+            ff.options(
+                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
         else:
-            ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
+            ff.options(
+                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
 
         print("Removing original audio + video files")
         os.remove(f'audio-{current_time}.mp4')
         os.remove(f'video-{current_time}.mp4')
         sg.Popup("Success!", "Video downloaded!")
+
+        return
+
 
 def calculate_directory(user_output_directory):
     if not user_output_directory:
@@ -60,3 +66,24 @@ def calculate_directory(user_output_directory):
     else:
         return user_output_directory
 
+
+def calculate_available_resolutions(video):
+    print("Calculating available resolutions")
+    standard_resolutions = ["144p", "240p", "360p", "480p", "720p", "1080p"]
+    available_resolutions = []
+    for resolution in standard_resolutions:
+        print(f'checking {resolution}')
+        try:
+            video_object = video.streams.filter(resolution=resolution, file_extension="mp4", adaptive=True).first()
+            print(f'found {video_object} for {resolution}')
+            audio_object = video.streams.filter(only_audio=True, mime_type="audio/mp4").first()
+            print(f'found {audio_object} for {resolution}')
+            if video_object and audio_object:
+                print(f'{resolution} vid and audio object found. appending')
+                available_resolutions.append(resolution)
+            else:
+                print(f'not available for f{resolution}')
+        except:
+            print("Error. Not available in this res")
+    print(available_resolutions)
+    return available_resolutions
