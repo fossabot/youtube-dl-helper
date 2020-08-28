@@ -6,7 +6,7 @@ from pytube import YouTube
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
-local_version = "1.1"
+local_version = "2.0"
 dev_version = True  # Set to false to override dev check
 
 essential_options = [
@@ -83,20 +83,20 @@ while True:
     if event == "Check":
         try:
             video_link = YouTube(values['-DLURL-'])
-            print(video_link.title)
             window.FindElement("-VIDEOTITLE-").Update(video_link.title)
             window.FindElement("-DLBUTTON-").Update(disabled=False)
             resolutions_available = helpers.calculate_available_resolutions(video_link)
             window.FindElement("-RESCOMBO-").Update(values=resolutions_available)
             if video_link.age_restricted:
+                print("[WARN] Video is age restricted. The download MAY fail.")
                 age_restricted = True
                 sg.popup("Warning", "Video is age restricted. Download MAY fail.")
 
         except pytube.exceptions.RegexMatchError as invalid_url_error:
+            print("[ERROR] Invalid URL")
             sg.Popup("Error", "Invalid URL, check and try again.")
 
     if event == "-DLBUTTON-":
-        print("Download clicked")
         video_link = values["-DLURL-"]
         file_output_directory = helpers.calculate_directory(values["-FOLDER-"])
         helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
