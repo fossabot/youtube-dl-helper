@@ -5,7 +5,12 @@
 Simple project that uses pytube to download YouTube videos. Users can select desired resolution and what format they'd
 like the file to be.
 
+# modified pytube package
 
+pytube is pretty broken at the moment. i've merged some of the fixes from pull requests
+into https://github.com/wbnk/pytube
+
+install this modified version using ```pip install git+https://github.com/wbnk/pytube```
 
 # Features
 * Download a video

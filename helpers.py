@@ -82,7 +82,7 @@ def calculate_available_resolutions(video):
                 print(f'{resolution} vid and audio object found. appending')
                 available_resolutions.append(resolution)
             else:
-                print(f'not available for f{resolution}')
+                print(f'not available for {resolution}')
         except:
             print("Error. Not available in this res")
     print(available_resolutions)
