@@ -90,8 +90,6 @@ while True:
                 age_restricted = True
                 sg.popup("Warning", "Video is age restricted. Download MAY fail.")
 
-
-
         except pytube.exceptions.RegexMatchError as invalid_url_error:
             sg.Popup("Error", "Invalid URL, check and try again.")
 

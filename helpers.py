@@ -45,15 +45,14 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             sg.Popup("Download fail", "Couldn't find a stream at your desired resolution. Choose a lower quality")
             return
         if not file_dir:
-            ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy output-{current_time}.mkv')
-            os.remove(f'audio-{current_time}.mp4')
-            os.remove(f'video-{current_time}.mp4')
-            sg.Popup("Success!", "Video saved to same directory as program")
+            ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
         else:
-            ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.mkv')
-            os.remove(f'audio-{current_time}.mp4')
-            os.remove(f'video-{current_time}.mp4')
-            sg.Popup("Success!", "Video saved to same selected directory")
+            ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
+
+        print("Removing original audio + video files")
+        os.remove(f'audio-{current_time}.mp4')
+        os.remove(f'video-{current_time}.mp4')
+        sg.Popup("Success!", "Video downloaded!")
 
 def calculate_directory(user_output_directory):
     if not user_output_directory:
