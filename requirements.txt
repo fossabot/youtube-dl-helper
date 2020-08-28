@@ -1,4 +1,3 @@
-wxPython==4.1.0
-youtube_dl
-PySimpleGUI~=4.24.0
-pytube
+requests
+PySimpleGUI
+pytube3
