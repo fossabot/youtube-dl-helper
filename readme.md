@@ -33,13 +33,15 @@ No screenshot available currently.
 
 *I have found a way to include the ffmpeg.exe in the pyinstaller executable, however I'm not entirely sure of whether I am able to distribute ffmpeg with the program. You can create your own exe very easily.*
 
-You'll first need to install the requirements. Pytube is required, but this project is using a *slightly* modified version. You can install it by using the command ```pip install git+https://github.com/wbnk/pytube```. I'd recommend using Pytube when it is properly fixed.
+Select a release and download 
+
+You'll then need to install the requirements. Pytube is required, but this project is using a *slightly* modified version. You can install it by using the command ```pip install git+https://github.com/wbnk/pytube```. I'd recommend using Pytube when it is properly fixed.
 
 You can then run ```python main.py```. 
 
 # Creating exe
 
-Using pyinstaller, you can run ```pyinstaller --onefile --name ytdl-helper --add-binary 'ffmpeg.exe;pyffmpeg/static/bin/win32/ffmpeg.exe' main.py```
+Using pyinstaller, you can run ```pyinstaller --onefile --name ytdl-helper --add-binary ffmpeg.exe;pyffmpeg/static/bin/win32 main.py``` You'll need ffmpeg.exe in the directory 
 
 
 
