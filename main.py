@@ -7,12 +7,10 @@ from pytube import YouTube
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
 local_version = "2.0"
-dev_version = True  # Set to false to override dev check
+dev_version = False  # Set to false to override dev check
 
 essential_options = [
-
     [
-
         sg.Text("Download Directory:"),
 
         sg.In(size=(25, 1), enable_events=True, readonly=True, key="-FOLDER-"),
@@ -28,13 +26,14 @@ essential_options = [
 
     ],
 
-    [
-        sg.Text("Video Title: ", key='-VIDEOTITLE-', size=(40, 1))
-    ],
 
-    [
-        sg.Button("Download", disabled=True, key='-DLBUTTON-')
-    ]
+    [sg.Text("Video Title: ", key='-VIDEOTITLE-', size=(40, 1))],
+
+
+
+    [sg.Button("Download", disabled=True, key='-DLBUTTON-')],
+
+    [sg.Text(f'Version {local_version}')]
 
 ]
 
@@ -43,7 +42,7 @@ optional_options = [
     [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
     [sg.Text("Video Resolution:"),
      sg.Combo(['144p', '240p', '360p', '480p', '720p', '1080p'], enable_events=True,
-              readonly=True, default_value='1080p', key='-RESCOMBO-')],
+              readonly=True, key='-RESCOMBO-')],
     [sg.Text("File Type:"),
      sg.Combo(['Video and audio', 'Audio only'], enable_events=True,
               readonly=True, default_value='Video and audio', key='-OUTPUTTYPE-')],
@@ -70,7 +69,7 @@ window = sg.Window("youtube-dl-helper", layout)
 helpers.check_version(local_version, dev_version)
 
 while True:
-    event, values = window.read(timeout=10)
+    event, values = window.read(timeout=1000)
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
 
