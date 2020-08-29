@@ -14,7 +14,7 @@ def check_version(local_version, dev_version):
         print(server_version)
         if not dev_version:
             if server_version != local_version:
-                sg.Popup("Out of date", """A newer version is available at Github! Update the software
+                sg.Popup("Out of date!", """A newer version is available at Github! Update the software
                          to receive the latest feature updates.""")
                 return False
             return True
