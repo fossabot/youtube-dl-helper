@@ -50,11 +50,17 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             sg.Popup("Download fail", "Couldn't find a stream at your desired resolution. Choose a lower quality")
             return
         if not file_dir:
-            ff.options(
-                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {underscore_name}.{prefformat}')
+            try:
+                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {underscore_name}.{prefformat}')
+            except:
+                print("[WARN] Error whilst converting. Defaulting back to generic filename")
+                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
         else:
-            ff.options(
-                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
+            try:
+                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
+            except:
+                print("[WARN] Error whilst converting. Defaulting back to generic filename")
+                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
 
         print("[INFO] Cleaning up...")
         os.remove(f'audio-{current_time}.mp4')
