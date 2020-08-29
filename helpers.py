@@ -1,16 +1,17 @@
 from pytube import YouTube
 import PySimpleGUI as sg
 import requests
-
 import time
 from pyffmpeg import FFmpeg
 import os
 
+
 def check_version(local_version, dev_version):
     try:
         response = requests.get("https://raw.githubusercontent.com/wbnk/youtube-dl-helper/master/version_info.json")
-        data = response.text
-        server_version = data[0] + data[1] + data[2]
+        data = response.json()
+        server_version = data['stable-version']
+        print(server_version)
         if not dev_version:
             if server_version != local_version:
                 sg.Popup("Out of date", """A newer version is available at Github! Update the software
@@ -83,9 +84,6 @@ def calculate_available_resolutions(video):
             print(f'[INFO] Video not available at: {resolution}')
     print(available_resolutions)
     return available_resolutions
-
-
-
 
     # def on_progress(stream, chunk, bytes_remaining):  # Used a profiler and download speed is destroyed!
     #    total_size = stream.filesize

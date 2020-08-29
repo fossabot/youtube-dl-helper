@@ -104,7 +104,5 @@ while True:
                                values['-OUTPUTTYPE-'], video_link)
         window.FindElement('-DLBUTTON-').Update(disabled=True)
 
-    if event == 'Cancel':
-        break
 
 window.close()
