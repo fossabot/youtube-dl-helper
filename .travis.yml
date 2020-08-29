@@ -26,13 +26,6 @@ script:
   - ls -l dist
   - echo "File size should indicate whether it was successful or not!"
   
-deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: "TLs1EP+3gKXBhKbJU99YsfJW2+gwg+qYPfwNsJfObIRB3RcRxqml9HUqv9YkUy2SNze+X+rkwD4GD6zmerJ4Mxc1tFqog+bCnhaWwHMdX2UMvxLAMUtHPzQ6jIp7Yc+y5t54OKZxd2Et71dvH1WFj7MrdzYdc00nYLG/KJsbAKOkJUVAfa98XGz4q7UIBPlFkFjew4iGwb4et0ObcQcUfz0rISmkf7u8wi6wwim3IOkBWu43rkk07jVZ0m/yPncNE6P/FMEs1B0RYINunVG7vhDSOFB6+idEqqYqm8XoA6Zg6/CdrMYvJQaNV4gtMR88QcSVB5YpfGH4r38v0lgRs0/lpMQ7vfguxuZn8ny5fkJcDSN9S1/yJrXpCL90+ST/F/Zl+X1XS3lSo8lFC4kkYkSJGGBUj9OpvDC6/XHJNV0jTQqJG+kEDbLXbGR717NvIav5JBQcCX7jdBEIAb5Rksr1c6Ao1rv5AIUtVcNhwGkGA5NYR9Pom5XBr5azeuExT+U89Gn7rPHZTmin8HV4T8ZrvKLZBCz0slXkGj3rBqyev17aNfeVS2Ni0YvE2Uahx9nWP2T6TNhLlBPJkpi+F+c6XZBvrv9QCxzvq8nE1VTl9ACPZKl8z70qEcqiaOeq5nnHSC/PZci0MdYuJB1U4ElJFB85lLcea5Cn+pH3WcM="
-  file: "dist/ytdl-helper.exe"
-  on:
-    tags: true
+
   
 
