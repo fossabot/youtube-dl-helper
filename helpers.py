@@ -4,6 +4,7 @@ import requests
 import time
 from pyffmpeg import FFmpeg
 import os
+import sys
 
 
 def check_version(local_version, dev_version):
@@ -26,6 +27,7 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
     video = YouTube(vid_url)
     download_object = video.streams.filter(resolution=resolution,
                                            file_extension="mp4", progressive=True).first()
+    video.register_on_progress_callback(on_progress)
     if download_object:
         print("[INFO] Progressive stream found. Direct download available")
         download_object.download(filename=video.title)
@@ -77,3 +79,13 @@ def calculate_available_resolutions(video):
             print(f'[INFO] Video not available at: {resolution}')
     print(available_resolutions)
     return available_resolutions
+
+
+def on_progress(stream, chunk, bytes_remaining):
+    total_size = stream.filesize
+    bytes_downloaded = total_size - bytes_remaining
+    percentage_of_completion = bytes_downloaded / total_size * 100
+    progress = sg.one_line_progress_meter(f'Downloading {stream.title}', int(percentage_of_completion), 100,
+                                          '% downloaded', orientation="h", size=(50, 50))
+    if not progress:
+        print("[INFO] Cancelling download doesn't currently work.")

@@ -70,7 +70,7 @@ window = sg.Window("youtube-dl-helper", layout)
 helpers.check_version(local_version, dev_version)
 
 while True:
-    event, values = window.read()
+    event, values = window.read(timeout=10)
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
 
@@ -103,5 +103,8 @@ while True:
                                values['-PREFFORMAT-'],
                                values['-OUTPUTTYPE-'], video_link)
         window.FindElement('-DLBUTTON-').Update(disabled=True)
+
+    if event == 'Cancel':
+        break
 
 window.close()
