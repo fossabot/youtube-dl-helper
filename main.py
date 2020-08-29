@@ -1,3 +1,6 @@
+"""
+This file handles all of the GUI. When buttons are clicked, events are called. Helpers.py performs the actual downloading
+"""
 from __future__ import unicode_literals
 import PySimpleGUI as sg
 import helpers
