@@ -35,7 +35,7 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 
 *I have found a way to include the ffmpeg.exe in the pyinstaller executable, however I'm not sure whether I can bundle the .exe with ffmpeg. You can create your own exe very easily.*
 
-Select a release and download 
+Download the latest source (not releases they don't get updated much)
 
 You'll then need to install the requirements. Pytube is required, but this project is using a *slightly* modified version. You can install it by using the command ```pip install git+https://github.com/wbnk/pytube```. I'd recommend using Pytube when it is properly fixed.
 
