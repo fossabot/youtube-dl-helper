@@ -1,4 +1,4 @@
-youtube_dl
-PySimpleGUI~=4.24.0
-pytube
+requests
+PySimpleGUI
+pytube3
 pyffmpeg
