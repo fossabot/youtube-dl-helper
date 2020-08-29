@@ -26,12 +26,14 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 
 # Screenshots
 
-No screenshot available currently.
+2.0 UI (console opens with program to allow users to debug easily and to provide important information)
+
+![2.0 UI](https://i.imgur.com/Szmmnua.png)
 
 
 # Download
 
-*I have found a way to include the ffmpeg.exe in the pyinstaller executable, however I'm not entirely sure of whether I am able to distribute ffmpeg with the program. You can create your own exe very easily.*
+*I have found a way to include the ffmpeg.exe in the pyinstaller executable, however I'm not sure whether I can bundle the .exe with ffmpeg. You can create your own exe very easily.*
 
 Select a release and download 
 
