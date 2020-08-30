@@ -33,17 +33,14 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 
 # Download
 
-*I have found a way to include the ffmpeg.exe in the pyinstaller executable, however I'm not sure whether I can bundle the .exe with ffmpeg. You can create your own exe very easily.*
+*You can download the latest build from the [releases](https://github.com/wbnk/youtube-dl-helper/releases) page. Alternatively, you can create your own exe by following the instructions below...
 
-Download the latest source (not releases they don't get updated much)
+# Build instructions
 
-You'll then need to install the requirements. Pytube is required, but this project is using a *slightly* modified version. You can install it by using the command ```pip install git+https://github.com/wbnk/pytube```. I'd recommend using Pytube when it is properly fixed.
-
-You can then run ```python main.py```. 
-
-# Creating exe
-
-Using pyinstaller, you can run ```pyinstaller --onefile --name ytdl-helper --add-binary ffmpeg.exe;pyffmpeg/static/bin/win32 main.py``` You'll need ffmpeg.exe in the directory 
+* Download the latest source
+* You'll then need to install the requirements by running ```pip install -r requirements.txt``` (This will install a fixed pytube version)
+* Run ```python main.py``` to verify that everything works.
+* Create the exe using ```pyinstaller --onefile --name ytdl-helper --add-binary ffmpeg.exe;pyffmpeg/static/bin/win32 main.py```. ffmpeg.exe needs to be in the same directory as main.py. You can use pyffmpeg's exe by finding it in site-packages/pyffmpeg/static/bin/win32 and copying it to your main directory.
 
 
 
