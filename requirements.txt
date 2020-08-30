@@ -1,4 +1,4 @@
 requests
 PySimpleGUI
-pytube3
+git+https://github.com/wbnk/pytube@master
 pyffmpeg
