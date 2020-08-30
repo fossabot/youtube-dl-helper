@@ -15,6 +15,7 @@ matrix:
 install:
   - python -m pip install --upgrade pip
   - pip install -r requirements.txt
+  - pip install git+https://github.com/wbnk/pytube
 
 script:
   - pyinstaller --onefile --noconsole --name ytdl-helper main.py
