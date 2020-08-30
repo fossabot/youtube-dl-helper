@@ -33,7 +33,7 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 
 # Download
 
-*You can download the latest build from the [releases](https://github.com/wbnk/youtube-dl-helper/releases) page. Alternatively, you can create your own exe by following the instructions below...
+*You can download the latest build from the [releases](https://github.com/wbnk/youtube-dl-helper/releases) page. Alternatively, you can create your own exe by following the instructions below...*
 
 # Build instructions
 
