@@ -10,8 +10,7 @@ on_progress() - was used as a callback when downloading video. currently not fun
 
 """
 
-
-from pytube import YouTube
+from pytube import YouTube, Playlist
 import PySimpleGUI as sg
 import requests
 import time
@@ -64,16 +63,20 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             return
         if not file_dir:  # This could easily be merged into 2 lines
             try:
-                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {underscore_name}.{prefformat}')
+                ff.options(
+                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {underscore_name}.{prefformat}')
             except:  # Horrible hack to fix videos with filenames that break pyffmpeg
                 print("[WARN] Error whilst converting. Defaulting back to generic filename")
-                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
+                ff.options(
+                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
         else:
             try:
-                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
+                ff.options(
+                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
             except:  # Horrible hack to fix videos with filenames that break pyffmpeg
                 print("[WARN] Error whilst converting. Defaulting back to generic filename")
-                ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
+                ff.options(
+                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
 
         print("[INFO] Cleaning up...")
         os.remove(f'audio-{current_time}.mp4')
@@ -82,8 +85,35 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         return
 
 
-def download_playlist():
-    print("test")
+def download_playlist_video(url, resolution):
+    print(f'[INFO] Attempting to download {url}')
+    video = YouTube(url)
+    print("[INFO] Searching for max available resolution (capped at 720p")
+    max_res = calculate_available_resolutions(video)
+    print(f'Max res = {max_res[-1]}')
+    video_object = video.streams.filter(resolution=max_res[-1], progressive=True, file_extension="mp4").first()  # TODO add output support
+    print("[INFO] Attempting to download video object")
+    video_object.download()
+    print("[INFO] Video object downloaded")
+    return
+
+
+
+def get_playlist_links(url):
+    vid_links = []
+    playlist = Playlist(url)
+    for prefix in playlist.video_urls:
+        vid_links.append(prefix)
+    return vid_links
+
+
+def download_playlist(resolution, file_dir, subtitles, prefformat, output_type, vid_url):
+    video_links = get_playlist_links(vid_url)
+    for video in video_links:
+        print(f'[INFO] Downloading {video}')
+        download_playlist_video(video, resolution)
+    sg.Popup("Done!", "Playlist downloaded")
+    return
 
 
 def calculate_directory(user_output_directory):

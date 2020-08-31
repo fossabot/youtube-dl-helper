@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import PySimpleGUI as sg
 import helpers
 import pytube
-from pytube import YouTube
+from pytube import YouTube, Playlist
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
@@ -87,28 +87,40 @@ while True:
             window.FindElement('-PREFFORMAT-').Update(disabled=False)
 
     if event == "Check":
-        try:
-            video_link = YouTube(values['-DLURL-'])
-            window.FindElement("-VIDEOTITLE-").Update(video_link.title)
-            window.FindElement("-DLBUTTON-").Update(disabled=False)
-            resolutions_available = helpers.calculate_available_resolutions(video_link)
-            window.FindElement("-RESCOMBO-").Update(values=resolutions_available)
-            if video_link.age_restricted:
-                print("[WARN] Video is age restricted. The download MAY fail.")
-                age_restricted = True
-                sg.popup("Warning", "Video is age restricted. Download MAY fail.")
+        if values['-DLPL-']:
+            try:
+                playlist_link = Playlist(values['-DLURL-'])
+                sg.Popup("Warning", "Playlists MAY not work")
+                window.FindElement("-VIDEOTITLE-").Update(f'Playlist: {playlist_link.title()}')
+                window.FindElement("-DLBUTTON-").Update(disabled=False)
+            except:
+                print("[ERROR] Playlist Error")
+                sg.Popup("Error", "Invalid playlist URL")
+        else:
+            try:
+                video_link = YouTube(values['-DLURL-'])
+                window.FindElement("-VIDEOTITLE-").Update(f'Title: {video_link.title}')
+                window.FindElement("-DLBUTTON-").Update(disabled=False)
+                resolutions_available = helpers.calculate_available_resolutions(video_link)
+                window.FindElement("-RESCOMBO-").Update(values=resolutions_available)
+                if video_link.age_restricted:
+                    print("[WARN] Video is age restricted. The download MAY fail.")
+                    age_restricted = True
+                    sg.popup("Warning", "Video is age restricted. Download MAY fail.")
 
-        except pytube.exceptions.RegexMatchError as invalid_url_error:
-            print("[ERROR] Invalid URL")
-            sg.Popup("Error", "Invalid URL, check and try again.")
+            except pytube.exceptions.RegexMatchError as invalid_url_error:
+                print("[ERROR] Invalid URL")
+                sg.Popup("Error", "Invalid URL, check and try again. Check playlist if you're using one.")
 
     if event == "-DLBUTTON-":
         video_link = values["-DLURL-"]
         file_output_directory = helpers.calculate_directory(values["-FOLDER-"])
         if values['-DLPL-']:
-            helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
+            print("[INFO] Attempting to download playlist")
+            helpers.download_playlist(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
                                    values['-PREFFORMAT-'],
                                    values['-OUTPUTTYPE-'], video_link)
+            window.FindElement('-DLBUTTON-').Update(disabled=True)
         else:
             helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
                                    values['-PREFFORMAT-'],
