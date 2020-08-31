@@ -40,7 +40,7 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 * Download the latest source
 * You'll then need to install the requirements by running ```pip install -r requirements.txt``` (This will install a fixed pytube version)
 * Run ```python main.py``` to verify that everything works.
-* Create the exe using ```pyinstaller --onefile --name ytdl-helper --add-binary ffmpeg.exe;pyffmpeg/static/bin/win32 main.py```. ffmpeg.exe needs to be in the same directory as main.py. You can use pyffmpeg's exe by finding it in site-packages/pyffmpeg/static/bin/win32 and copying it to your main directory.
+* Create the exe using ```pyinstaller --onefile --name ytdl-helper```. Make sure not to use ```--noconsole```, the conversion output is written to the console and will fail if it's disabled. The console also provides information for debugging.
 
 
 
