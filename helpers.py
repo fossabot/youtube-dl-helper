@@ -41,12 +41,14 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
     current_time = int(time.time())
     video = YouTube(vid_url)
     underscore_name = video.title.replace(" ", "_")
+    if not file_dir:
+        file_dir = os.getcwd()
     download_object = video.streams.filter(resolution=resolution,
                                            file_extension="mp4", progressive=True).first()
     # video.register_on_progress_callback(on_progress)  # This appears to completely destroy performance.
     if download_object:
         print("[INFO] Progressive stream found. Direct download available")
-        download_object.download(filename=video.title)
+        download_object.download(filename=video.title, output_path=file_dir)
         sg.Popup("Success", "Video successfully downloaded!")
     else:
         print("[INFO] Progressive stream not found. Searching for adaptive streams.")
@@ -61,23 +63,13 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             print("[ERROR] Couldn't find stream at desired resolution.")
             sg.Popup("Download fail", "Couldn't find a stream at your desired resolution. Choose a lower quality")
             return
-        if not file_dir:  # This could easily be merged into 2 lines
-            try:
-                ff.options(
-                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {underscore_name}.{prefformat}')
-            except:  # Horrible hack to fix videos with filenames that break pyffmpeg
-                print("[WARN] Error whilst converting. Defaulting back to generic filename")
-                ff.options(
-                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
-        else:
-            try:
-                ff.options(
-                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
-            except:  # Horrible hack to fix videos with filenames that break pyffmpeg
-                print("[WARN] Error whilst converting. Defaulting back to generic filename")
-                ff.options(
-                    f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
-
+        try:
+            ff.options(
+                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
+        except:  # Horrible hack to fix videos with filenames that break pyffmpeg
+            print("[WARN] Error whilst converting. Defaulting back to generic filename")
+            ff.options(
+                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
         print("[INFO] Cleaning up...")
         os.remove(f'audio-{current_time}.mp4')
         os.remove(f'video-{current_time}.mp4')
@@ -86,14 +78,15 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
 
 
 def download_playlist_video(url, resolution):
+    path = os.getcwd()
     print(f'[INFO] Attempting to download {url}')
     video = YouTube(url)
-    print("[INFO] Searching for max available resolution (capped at 720p")
+    print("[INFO] Searching for max available resolution (capped at 720p)")
     max_res = calculate_available_resolutions(video)
     print(f'Max res = {max_res[-1]}')
-    video_object = video.streams.filter(resolution=max_res[-1], progressive=True, file_extension="mp4").first()  # TODO add output support
+    video_object = video.streams.filter(resolution=max_res[-1], progressive=True, file_extension="mp4").first()
     print("[INFO] Attempting to download video object")
-    video_object.download()
+    video_object.download(output_path=path)
     print("[INFO] Video object downloaded")
     return
 
