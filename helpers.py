@@ -69,6 +69,10 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         return
 
 
+def download_playlist():
+    print("test")
+
+
 def calculate_directory(user_output_directory):
     if not user_output_directory:
         return

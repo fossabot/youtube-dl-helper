@@ -40,7 +40,10 @@ essential_options = [
 
 optional_options = [
 
-    [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-')],
+    [sg.Checkbox('Subtitles (en)?', default=False, key='-SUBS-'),
+     sg.Checkbox('Playlist?', default=False, key="-DLPL-"),
+     ],
+
     [sg.Text("Video Resolution:"),
      sg.Combo(['144p', '240p', '360p', '480p', '720p', '1080p'], enable_events=True,
               readonly=True, key='-RESCOMBO-')],
@@ -99,10 +102,15 @@ while True:
     if event == "-DLBUTTON-":
         video_link = values["-DLURL-"]
         file_output_directory = helpers.calculate_directory(values["-FOLDER-"])
-        helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
-                               values['-PREFFORMAT-'],
-                               values['-OUTPUTTYPE-'], video_link)
-        window.FindElement('-DLBUTTON-').Update(disabled=True)
+        if values['-DLPL-']:
+            helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
+                                   values['-PREFFORMAT-'],
+                                   values['-OUTPUTTYPE-'], video_link)
+        else:
+            helpers.download_video(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
+                                   values['-PREFFORMAT-'],
+                                   values['-OUTPUTTYPE-'], video_link)
+            window.FindElement('-DLBUTTON-').Update(disabled=True)
 
 
 window.close()
