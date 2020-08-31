@@ -4,8 +4,7 @@ This file handles the actual downloading and a few other things. Functions are e
 Functions:
 check_version() - reads version number from git repo and checks with local version number.
 download_video() - creates 'YouTube' object and downloads it. Searches for progressive (audio+video) streams first.
-calculate_directory() - calculates directory string. used when youtube_dl was handling downloads. deprecated as of version 2 (will be removed)
-calculate_available_resolutions() - creates 'YouTube' object and searches for downloads for every resolution. passes valid resolutions back to update combobox
+calculate_available_resolutions() - creates 'YouTube' object and searches for downloads for every resolution.
 on_progress() - was used as a callback when downloading video. currently not functional and may be removed
 
 """
@@ -45,7 +44,7 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         file_dir = os.getcwd()
     download_object = video.streams.filter(resolution=resolution,
                                            file_extension="mp4", progressive=True).first()
-    # video.register_on_progress_callback(on_progress)  # This appears to completely destroy performance.
+
     if download_object:
         print("[INFO] Progressive stream found. Direct download available")
         download_object.download(filename=video.title, output_path=file_dir)
@@ -77,19 +76,46 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
         return
 
 
-def download_playlist_video(url, resolution):
-    path = os.getcwd()
-    print(f'[INFO] Attempting to download {url}')
+def download_playlist_video(url, resolution, file_dir, prefformat):
+    ff = FFmpeg()
+    if not file_dir:
+        file_dir = os.getcwd()
+    current_time = int(time.time())
+    print(f'[INFO] Attempting to download {url} at max resolution')
     video = YouTube(url)
-    print("[INFO] Searching for max available resolution (capped at 720p)")
+    underscore_name = video.title.replace(" ", "_")
     max_res = calculate_available_resolutions(video)
-    print(f'Max res = {max_res[-1]}')
-    video_object = video.streams.filter(resolution=max_res[-1], progressive=True, file_extension="mp4").first()
-    print("[INFO] Attempting to download video object")
-    video_object.download(output_path=path)
-    print("[INFO] Video object downloaded")
-    return
+    if max_res[-1] == "1080p":
+        video_object = video.streams.filter(resolution="1080p", file_extension="mp4").first()
+        audio_object = video.streams.filter(only_audio=True, mime_type="audio/mp4").first()
+        try:
+            video_object.download(filename=f'video-{current_time}')
+            audio_object.download(filename=f'audio-{current_time}')
+        except:
+            sg.Popup("Error", f'Error downloading {video.title}. Sorry!')
+            return
 
+        try:
+            ff.options(
+                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
+            os.remove(f'audio-{current_time}.mp4')
+            os.remove(f'video-{current_time}.mp4')
+            print("[INFO] Downloaded and converted 1080p video!")
+            return
+        except:  # Horrible hack
+            print("[WARN] Error whilst converting. Defaulting back to generic filename")
+            ff.options(
+                f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
+            os.remove(f'audio-{current_time}.mp4')
+            os.remove(f'video-{current_time}.mp4')
+            print("[INFO] Downloaded and converted 1080p video (generic name)")
+            return
+    else:
+        video_object = video.streams.filter(resolution=max_res[-1], progressive=True, file_extension="mp4").first()
+        print("[INFO] Attempting to download video object")
+        video_object.download(output_path=file_dir)
+        print("[INFO] Video object downloaded")
+        return
 
 
 def get_playlist_links(url):
@@ -104,7 +130,7 @@ def download_playlist(resolution, file_dir, subtitles, prefformat, output_type, 
     video_links = get_playlist_links(vid_url)
     for video in video_links:
         print(f'[INFO] Downloading {video}')
-        download_playlist_video(video, resolution)
+        download_playlist_video(video, resolution, file_dir, prefformat)
     sg.Popup("Done!", "Playlist downloaded")
     return
 
@@ -130,13 +156,3 @@ def calculate_available_resolutions(video):
             print(f'[INFO] Video not available at: {resolution}')
     print(available_resolutions)
     return available_resolutions
-
-    # def on_progress(stream, chunk, bytes_remaining):  # Used a profiler and download speed is destroyed!
-    #    total_size = stream.filesize
-    #    bytes_downloaded = total_size - bytes_remaining
-    #    percentage_of_completion = bytes_downloaded / total_size * 100
-    #    progress = sg.one_line_progress_meter(f'Downloading {stream.title}', int(percentage_of_completion), 100,
-    #                                          '% downloaded', orientation="h", size=(50, 50))
-    #    if not progress:
-    #        print("[INFO] Download finished or you clicked the cancel button")
-    #

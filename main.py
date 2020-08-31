@@ -114,7 +114,7 @@ while True:
 
     if event == "-DLBUTTON-":
         video_link = values["-DLURL-"]
-        file_output_directory = helpers.calculate_directory(values["-FOLDER-"])
+        file_output_directory = values["-FOLDER-"]
         if values['-DLPL-']:
             print("[INFO] Attempting to download playlist")
             helpers.download_playlist(values['-RESCOMBO-'], file_output_directory, values['-SUBS-'],
