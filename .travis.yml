@@ -14,12 +14,9 @@ matrix:
 
 install:
   - python -m pip install --upgrade pip
-  # - pip install -r requirements.txt
+  - pip install -r requirements.txt
+  - pip install git+https://github.com/wbnk/pytube
   - pip install pyinstaller
-  - pip install youtube_dl
-  - pip install PySimpleGUI
-  - pip install requests
-
 script:
   - pyinstaller --onefile --noconsole --name ytdl-helper main.py
   - sleep 1

@@ -1,3 +1,16 @@
+"""
+This file handles the actual downloading and a few other things. Functions are explained below.
+
+Functions:
+check_version() - reads version number from git repo and checks with local version number.
+download_video() - creates 'YouTube' object and downloads it. Searches for progressive (audio+video) streams first.
+calculate_directory() - calculates directory string. used when youtube_dl was handling downloads. deprecated as of version 2 (will be removed)
+calculate_available_resolutions() - creates 'YouTube' object and searches for downloads for every resolution. passes valid resolutions back to update combobox
+on_progress() - was used as a callback when downloading video. currently not functional and may be removed
+
+"""
+
+
 from pytube import YouTube
 import PySimpleGUI as sg
 import requests
@@ -49,16 +62,16 @@ def download_video(resolution, file_dir, subtitles, prefformat, output_type, vid
             print("[ERROR] Couldn't find stream at desired resolution.")
             sg.Popup("Download fail", "Couldn't find a stream at your desired resolution. Choose a lower quality")
             return
-        if not file_dir:
+        if not file_dir:  # This could easily be merged into 2 lines
             try:
                 ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {underscore_name}.{prefformat}')
-            except:
+            except:  # Horrible hack to fix videos with filenames that break pyffmpeg
                 print("[WARN] Error whilst converting. Defaulting back to generic filename")
                 ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy download-{current_time}.{prefformat}')
         else:
             try:
                 ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/{underscore_name}.{prefformat}')
-            except:
+            except:  # Horrible hack to fix videos with filenames that break pyffmpeg
                 print("[WARN] Error whilst converting. Defaulting back to generic filename")
                 ff.options(f'-i audio-{current_time}.mp4 -i video-{current_time}.mp4 -acodec copy -vcodec copy {file_dir}/download-{current_time}.{prefformat}')
 
