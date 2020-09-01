@@ -6,6 +6,7 @@ import PySimpleGUI as sg
 import helpers
 import pytube
 from pytube import YouTube, Playlist
+import webbrowser
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
@@ -59,9 +60,14 @@ optional_options = [
 
 ]
 
+menu_options = [
+    ['Help', ['Report an issue', 'About']]
+]
+
 layout = [
 
     [
+        sg.Menu(menu_options),
 
         sg.Column(essential_options),
 
@@ -80,6 +86,14 @@ while True:
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
 
+    if event == "About":
+        sg.Popup("ytdl-helper", "Version 2.0", "Thanks to the following projects:",
+                 "PySimpleGUI",
+                 "pytube",
+                 "pyffmpeg")
+
+    if event == "Report an issue":
+        webbrowser.open("https://github.com/wbnk/youtube-dl-helper/issues")
     if event == "-OUTPUTTYPE-":
         if values['-OUTPUTTYPE-'] == 'Audio only':
             window.FindElement('-PREFFORMAT-').Update(disabled=True)
