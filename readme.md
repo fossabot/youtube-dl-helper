@@ -17,12 +17,17 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 # Features
 
 * Download a video
-* Select desired video format
+* Select desired video output format (if downloading at 1080p, otherwise it downloads as an mp4)
 * Select desired video resolution
 * Select where to download (directory)
-* Automatically combines video + audio files from downloads into a single file
+* Automatically combines video + audio files from downloads into a single file. Also cleans up the source files used for conversion
 * Automatically checks for updates and informs the user if there is an update available (user must manually update for security reasons)
 
+**Upcoming features**
+* Playlist support
+* Subtitle support
+* Video FPS support (60 etc.)
+* Download audio only
 
 # Screenshots
 
