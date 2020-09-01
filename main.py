@@ -10,7 +10,7 @@ import webbrowser
 
 sg.ChangeLookAndFeel('LightBrown3')  # Experimental feature. Might change.
 
-local_version = "2.0"
+local_version = "2.1"
 dev_version = False  # Set to false to override dev check
 
 
