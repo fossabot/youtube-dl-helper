@@ -87,7 +87,7 @@ while True:
         break
 
     if event == "About":
-        sg.Popup("ytdl-helper", "Version 2.0", "Thanks to the following projects:",
+        sg.Popup("ytdl-helper", f'Version {local_version}', "Thanks to the following projects:",
                  "PySimpleGUI",
                  "pytube",
                  "pyffmpeg")
