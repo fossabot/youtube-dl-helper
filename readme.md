@@ -1,6 +1,7 @@
 # youtube-dl-helper
 [![CodeFactor](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper/badge)](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper) [![Build Status](https://travis-ci.com/wbnk/youtube-dl-helper.svg?branch=master)](https://travis-ci.com/wbnk/youtube-dl-helper)
 
+**Current version**: 2.1.1
 
 Simple project that uses pytube to download YouTube videos. Users can select desired resolution and what format they'd
 like the file to be.
@@ -22,9 +23,10 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 * Select where to download (directory)
 * Automatically combines video + audio files from downloads into a single file. Also cleans up the source files used for conversion
 * Automatically checks for updates and informs the user if there is an update available (user must manually update for security reasons)
+* Playlist downloading support (experimental feature, downloads at max res for each video)
 
 **Upcoming features**
-* Playlist support
+
 * Subtitle support
 * Video FPS support (60 etc.)
 * Download audio only
