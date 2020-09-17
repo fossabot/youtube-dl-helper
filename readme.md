@@ -1,5 +1,6 @@
 # youtube-dl-helper
 [![CodeFactor](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper/badge)](https://www.codefactor.io/repository/github/wbnk/youtube-dl-helper) [![Build Status](https://travis-ci.com/wbnk/youtube-dl-helper.svg?branch=master)](https://travis-ci.com/wbnk/youtube-dl-helper)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwbnk%2Fyoutube-dl-helper.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwbnk%2Fyoutube-dl-helper?ref=badge_shield)
 
 **Current version**: 2.1.1
 
@@ -51,3 +52,7 @@ install this modified version using ```pip install git+https://github.com/wbnk/p
 
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwbnk%2Fyoutube-dl-helper.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwbnk%2Fyoutube-dl-helper?ref=badge_large)
